@@ -1,0 +1,368 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <product2-detail1-list>
+      </product2-detail1-list>
+    </div>
+    <div class="col-md-4">
+      <product2-detail1-list>
+      </product2-detail1-list>
+    </div>
+    <div class="col-md-4">
+      <product2-detail1-list>
+      </product2-detail1-list>
+    </div>
+  </div>
+</div> -->
+<section *ngIf="this.productService.Tickets$.value.length >0">
+
+  <ng-container [ngTemplateOutlet]="ticketsShowService" *ngIf="!SelectedEvent$.value"></ng-container>
+  <ng-container [ngTemplateOutlet]="productDetail" *ngIf="SelectedEvent$.value"></ng-container>
+</section>
+<section *ngIf="this.productService.Tickets$.value.length ==0">
+
+  <ng-container [ngTemplateOutlet]="notTickets"></ng-container>
+
+</section>
+
+<!-- kullanılmıyor -->
+<ng-template #ticketsShow>
+  <div class="container">
+    <div class="ticketsMain">
+      <div class="ticket" *ngFor="let ticket of this.Tickets$.value">
+        <product2-detail2-list [Ticket]="ticket" (SelectedTicket)="SelectedTicket($event)"></product2-detail2-list>
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #ticketsShowService>
+  <div class="container">
+    <div class="row ticket-main">
+      <div *ngFor="let ticket of this.productService.Tickets$.value"
+        [ngClass]="isLargeDesktop == true ? 'col-md-4' : 'col-md-6'" style="padding: 10px;">
+        <product2-detail2-list [Ticket]="ticket" (SelectedTicket)="SelectedTicket($event)"></product2-detail2-list>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<ng-template #productDetail>
+  <div class="container productMain lead">
+    <div class="row">
+      <div [ngClass]="isLargeDesktop == true ? 'col-md-8' : 'col-md-6'">
+        <div class="row">
+          <div class="col-md-12">
+            <div class=" carouselImage">
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{SelectedEvent$.value.body.urlLink}}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{SelectedEvent$.value.body.urlLink}}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{SelectedEvent$.value.body.urlLink}}" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                  data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row ticket-detail-main">
+
+          <div class="col-md-12 lead ticket-detail p-25">
+            <div class="ticket-header border-bottom">
+              <h4>{{SelectedEvent$.value.body.biletTuru}}</h4>
+            </div>
+            <div class="ticket-detail">
+              <p>{{SelectedEvent$.value.body.eventDetayi}}</p>
+            </div>
+          </div>
+          <div class="col-md-12 lead ticket-information  " *ngIf="SelectedEvent$?.value?.body?.eventInformationShow">
+            <div class="ticket-information-header border-bottom p-10">
+              <h5>Bilgilendirme</h5>
+            </div>
+            <div class="ticket-information-detail">
+              <p>{{SelectedEvent$.value.body.eventInformation}}</p>
+            </div>
+          </div>
+          <div class="col-md-12 lead map">
+            <div class="map-header border-bottom p-10">
+              <h5>Nasıl Gidilir?</h5>
+            </div>
+            <div class="display-center pt-25">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.4653991530313!2d30.658091115292088!3d36.87921317993233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14c391b1640c9839%3A0x90c5c1f7902f0d2!2sAntalya%20Aquarium!5e0!3m2!1str!2str!4v1668015342588!5m2!1str!2str"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+          <div class="col-md-12 lead timeline" *ngIf="SelectedEvent$.value.body.timeLineShow">
+            <div class="timeline-header border-bottom p-10">
+              <h5>Etkinlik Takvimi</h5>
+            </div>
+            <ng-template [ngTemplateOutlet]="timeline"></ng-template>
+          </div>
+
+        </div>
+      </div>
+
+      <div [ngClass]="isLargeDesktop == true ? 'col-md-4' : 'col-md-6'">
+        <ng-template *ngTemplateOutlet="bookYour">
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+</ng-template>
+
+<ng-template #bookYour>
+  <div class="box_style_2">
+    <div class="box_style_2_header">
+      <div class="discount" *ngIf="this.productService.Discount$?.value?.body?.discount>0">
+        %{{this.productService.Discount$?.value?.body?.discount}}</div>
+      <div class="header__title dp-center" style="gap: 5px;"><i class="fa-solid fa-2x fa-ticket"></i> <span>Bilet Satın
+          Al</span> </div>
+    </div>
+    <div class="errors"
+      *ngIf="isBuyButtonHover && ticketForm.invalid&&((this.ticketForm.get('tcValidation').value && !TcValid)||!this.ticketForm.get('tcValidation').value)">
+      <div class="error">
+        <h4 class="border-bottom">Hata</h4>
+        <ul>
+          <li *ngFor="let error of getFormValidationErrors(ticketForm)"> <i
+              class="fa-sharp fa-solid fa-circle-exclamation error"></i><span class="error-detail lead">{{error}}</span>
+          </li>
+          <li *ngIf="(this.ticketForm.get('tcValidation').value && !TcValid)"> <i
+              class="fa-sharp fa-solid fa-circle-exclamation error"></i><span class="error-detail lead">Tc Numarası
+              hatalı girildi. </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form [formGroup]="ticketForm" form #form="ngForm" id="ticket-form" (ngSubmit)="SubmitTicketForm()">
+      <div class="form-group">
+        <label>Bilet Tarihi</label>
+        <div style="display: flex;">
+          <input name="picker" style="height:36px;width: 85%;" matInput [matDatepicker]="picker" [min]=" DateNow"
+            formControlName="ticketDate"
+            [ngClass]="{'wrong-input':isBuyButtonHover==true && ticketForm.get('ticketDate').invalid}">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker [startAt]="DateNow"></mat-datepicker>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row" style="width: 100%;">
+          <div class="col-md-6 form-group checkBox-tc-group">
+            <label for="" style="width: 110px;">TC
+              Vatandaşı</label> <input type="checkbox" formControlName="tcValidation" (click)="TcValidationCheckBox()">
+          </div>
+          <div class="col-md-6 form-group input-tc-group" *ngIf="ticketForm.get('tcValidation').value">
+            <!-- <label>Tc Kimlik Numarası</label> -->
+            <input type="text" style="width:140px" class="form-control input-tc" formControlName="tcNumber"
+              placeholder="Kimlik Numarası" (change)="TcNumberValidation()"
+              [ngClass]="{'wrong-input':isBuyButtonHover==true && !TcValid}">
+          </div>
+        </div>
+      </div>
+
+
+      <table id="tickets" class="table"
+        [ngClass]="{'wrong-input':isBuyButtonHover==true && ticketForm.get('totalPrice').invalid}">
+        <thead>
+          <tr>
+            <th style="width: 23%;">Bilet Türü</th>
+            <th style="width: 35%;text-align: center;
+            padding-right: 22px;">Adet</th>
+            <th style="width: 32%;" class="text-center"><span class="subtotal">Birim Toplamı</span>
+            </th>
+          </tr>
+        </thead>
+        <tfoot *ngIf="this.productService.Discount$?.value==null">
+          <tr class="total_row">
+            <td colspan="2"><strong>Toplam</strong>
+            </td>
+
+            <td class="text-center">
+              <label *ngIf="ticketForm.get('totalPrice').value !=0" style="    font-weight: bold;
+              color: var(--primaryColor);">{{ticketForm.get('totalPrice').value}} TL</label>
+            </td>
+          </tr>
+        </tfoot>
+        <tfoot *ngIf="this.productService.Discount$?.value?.body?.discount>0">
+          <tr class="total_row">
+            <td colspan="2"><strong>Toplam</strong>
+            </td>
+            <td class="text-center">
+              <label *ngIf="ticketForm.get('totalPrice').value !=0"
+                class="notDiscount">{{ticketForm.get('totalPrice').value*100/(100-this.productService.Discount$?.value?.body?.discount)}}
+                TL</label>
+            </td>
+            <!-- <td class="text-center">
+              <label style="font-weight: bold; 
+              color: var(--primaryColor);"
+                *ngIf="ticketForm.get('totalPrice').value !=0">{{ticketForm.get('totalPrice').value}} TL</label>
+            </td> -->
+          </tr>
+          <tr>
+            <td class="  discount-title">İndirim</td>
+            <td>
+              <div class="box">
+                <div class="inner">
+
+                  <div class="coupon">
+                    <span class="scissors">✂</span>
+                    <span class="code">%{{this.productService.Discount$?.value?.body?.discount}}</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="text-center" style="font-weight: bold; 
+            color: var(--primaryColor);" *ngIf="ticketForm.get('totalPrice').value !=0">
+              {{ticketForm.get('totalPrice').value}} TL</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <tr>
+            <td><strong>Yetişkin</strong>
+
+            </td>
+            <td>
+              <div class="form-Count">
+                <i (click)="decrement('adult')" class=" fa fa fa-minus"></i>
+                <input type="text" formControlName="adultCount" #cocuk>
+                <i (click)="increment('adult')" class=" fa fa-plus"></i>
+              </div>
+            </td>
+            <td class="text-center"><span class="subtotal">{{adultTicketPrice }}
+                TL</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Çocuk</strong>
+            </td>
+            <td>
+              <div class="form-Count">
+                <i (click)="decrement('children')" class=" fa fa fa-minus"></i>
+                <input type="text" formControlName="childrenCount" #cocuk>
+                <i (click)="increment('children')" class=" fa fa-plus"></i>
+              </div>
+            </td>
+            <td class="text-center"><span class="subtotal">{{childrenTicketPrice }} TL</span>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="contact-group">
+        <div class="border-bottom contact-header">
+          <h5>İletişim Bilgisi</h5>
+        </div>
+        <div class="form-group">
+          <label>İsim Soyisim</label>
+          <input type="text" class="form-control" id="name_lastname_booking" name="name_lastname_booking"
+            formControlName="nameAndLastName"
+            [ngClass]="{'wrong-input':isBuyButtonHover==true && ticketForm.get('nameAndLastName').invalid}">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" id="email_booking" name="email_booking" formControlName="email"
+            [ngClass]="{'wrong-input':isBuyButtonHover==true && ticketForm.get('email').invalid}">
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="text" class="form-control" id="telephone_booking" name="telephone_booking"
+            formControlName="telephone"
+            [ngClass]="{'wrong-input':isBuyButtonHover==true && ticketForm.get('telephone').invalid}">
+        </div>
+      </div>
+
+
+
+      <div (mouseenter)="SubmitTicketForm()"> <button class="btn btnSubmit" type="submit" id="submit-booking"
+          data-bs-toggle="modal" data-bs-target="#CreditCardModal" [disabled]="ticketForm.invalid ? 'disabled': null"><i
+            class="fa-regular fa-credit-card"></i> Ödeme
+          Yap</button>
+      </div>
+
+
+    </form>
+
+  </div>
+</ng-template>
+<ng-template #timeline>
+  <div class="container pt-25">
+
+    <div class="row">
+      <div>
+        <!-- Timeline -->
+        <ul class="timeline">
+          <li class="timeline-item bg-white rounded ml-3 p-4 shadow"
+            *ngFor="let timeline of SelectedEvent$.value.body.timeLineDetail">
+            <div class="timeline-arrow"></div>
+            <h2 class="h5 mb-0">{{timeline.title}}</h2><span class="small text-gray"><i
+                class="fa fa-clock-o mr-1"></i>{{timeline.hour}}</span>
+            <p class="text-small mt-2 font-weight-light">{{timeline.detail}}</p>
+          </li>
+
+        </ul><!-- End -->
+
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notTickets>
+  <section id="notTickets">
+    <div class="notTicketsMain container">
+      <div class="notTicketsMain__header">
+        <!-- <div> <img
+            [src]="(firebaseSS.settingsLogoUrl ? firebaseSS.settingsLogoUrl : 'https://portalv3.s3.eu-central-1.amazonaws.com/156/MyHotelFiles/78530f22-744a-42b0-b81e-8460cf83e567_balogo.png')"
+            height="75" alt="navbarMainLogo"></div> -->
+      </div>
+      <div class="notTicketsMain_detail">
+        <h4>Aktif bilet bulunmamaktadır. Lütfen Başka etkinliklere göz atınız.</h4>
+      </div>
+    </div>
+    <ticket [selectedEventsGeneralID]="selectedEventsGeneralId"></ticket>
+  </section>
+</ng-template>
+<!-- Modal -->
+<div class="modal fade" id="CreditCardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa-regular fa-credit-card"></i>Online Ödeme</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body card-body">
+        <credit-card (CreditCardDetail)="CreditCard($event)"></credit-card>
+      </div>
+
+    </div>
+  </div>
+</div>

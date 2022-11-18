@@ -1,0 +1,147 @@
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  font-size: 15px !important;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+:root {
+  --primaryColor: #17a2b8;
+  --secondaryColor: #e9dac1;
+  --dbPrimaryColor: #17a2b8;
+  --background: #33837e;
+  --left-side: #5de2a3;
+  --card: #c7ffbc;
+  --card-line: #80ea69;
+  --button-color-3: #26850e;
+  --button-color-2: #379e1f;
+  --button-color-1: #56be3e;
+  --post: #dddde0;
+  --numbers: #838183;
+  --numbers-2: #aaa9ab;
+  --post-line: #757375;
+  --post-line2: #545354;
+  --dollar: #4b953b;
+}
+.w-100 {
+  width: 100% !important;
+}
+.border-b {
+  border-bottom: 1px solid black;
+}
+.dp-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrong-input {
+  border: 2px solid red;
+}
+.buttonSubmit,
+.buttonPrimary {
+  width: 100%;
+  outline: none !important;
+  background: var(--primaryColor);
+  background: linear-gradient(
+    90deg,
+    var(--primaryColor) 0%,
+    var(--secondaryColor) 68%
+  );
+  text-transform: uppercase;
+  font-weight: bold;
+  border: none;
+  box-shadow: none;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+  height: 55px;
+}
+.buttonSubmit:hover,
+.buttonPrimary:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+}
+
+.breadcrumbMain {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: baseline;
+  font-weight: 500;
+}
+.breadcrumbBack {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+.breadcrumbBack:hover {
+  cursor: pointer;
+}
+* {
+  text-decoration: none !important;
+}
+.breadcrumbBack div {
+  background-color: var(--primaryColor);
+  padding: 5px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding-left: 10px;
+  position: absolute;
+  left: 20px;
+}
+.breadcrumbBack i {
+  border-radius: 50%;
+  color: var(--primaryColor);
+  background-color: white;
+  padding: 10px;
+  z-index: 2;
+  font-size: 16px;
+}
+.breadcrumb {
+  padding-left: 45px !important;
+}
+
+/* error */
+#error li {
+  list-style-type: none;
+}
+.error {
+  color: red;
+}
+.error-detail {
+  color: red;
+}
+.error-main ul {
+  padding-left: 0 !important;
+}
+
+/* discount */
+#discount {
+  border-radius: 200px 0px 0px 200px;
+  -webkit-border-radius: 200px 0px 0px 200px;
+  -moz-border-radius: 200px 0px 0px 200px;
+  width: 20% !important;
+  background-color: red;
+  color: white;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+@media screen and (max-width: 992px) {
+  html {
+    font-size: 18px !important;
+  }
+}

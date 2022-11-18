@@ -1,0 +1,713 @@
+<nav aria-label="breadcrumb" class="breadcrumbMain" [routerLink]="['/ticket']">
+  <div class="breadcrumbBack">
+    <i class="fa-solid fa-angle-left"></i>
+    <div>
+      BACK</div>
+  </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/ticket']" style=" color: var(--primaryColor);">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Ticket</li>
+  </ol>
+</nav>
+
+<section id="form-users" *ngIf="this?.tickets?.length!=0">
+  <section id="form">
+    <!-- Modal -->
+    <!-- form -->
+    <div class="container form-users   mb-5">
+      <!-- SOL KISIM -->
+      <div class="form-users__left">
+        <!-- UST KISIM -->
+        <div class="top m-3">
+          <form (change)="biletfalse()" [formGroup]="biletForm" form #form="ngForm"
+            (ngSubmit)="TicketInformationSubmitForm(biletForm)">
+
+            <div class="bg-danger text-white p-3"
+              *ngIf="(form.invalid &&formSubmitted)||(selectedTicket.body?.VatandaslikZorunlulugu&& biletForm.get('tcDurumForm')?.value &&clicked)">
+
+              <h3 class="border-bottom mb-2 p-2"> Bilgilendirme</h3>
+              <ul>
+                <li *ngFor="let error of getFormValidationErrors(biletForm)">
+                  {{ error }}
+                </li>
+
+                <li *ngIf="(biletForm.get('tcDurumForm')?.value && selectedTicket.body?.VatandaslikZorunlulugu)">
+                  TC Kimlik Numarası hatalı ve ya eksik girildi.</li>
+              </ul>
+              <div class="hata-footer pb-2">
+                <h5 class="mt-2">
+                  *** Tüm hataları düzeltip liste bittiğinde onaylayınız.
+                </h5>
+              </div>
+            </div>
+            <!-- bilgilendirme -->
+
+            <div class="header w-100">
+              <div>
+                <i class="fa-solid fa-ticket"></i>
+              </div>
+              <div class="bold">Bilet Bilgisi </div>
+            </div>
+            <div class="form-uyelik">
+              <div class="group form-group w-100">
+                <div class="w-25 bold">Bilet Adı </div>
+                <select (change)="changeUpdateForm()" style="width: 100%;border-radius: 3px;height: 36px;"
+                  class="form-control form-select" formControlName="biletAdiForm">
+                  <option selected>Lütfen Seçiniz</option>
+                  <option *ngFor="let n of tickets" [value]="n.primaryKey">
+                    {{n.body.biletTuru}}
+                  </option>
+
+                </select>
+              </div>
+              <div style="color:red;font-weight:bold;width:100%;    margin-bottom: 20px;
+              margin-top: 20px; " *ngIf="!biletForm.get('biletAdiForm').dirty">Lütfen
+                Bilet Türünü seçiniz.</div>
+
+              <div class="group w-100">
+                <div class="w-25 bold">Tarih </div>
+                <div class="w-100">
+
+                  <input formControlName="tarih" name="picker" style="height:36px" [min]="DateNow" matInput
+                    [matDatepicker]="picker">
+
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </div>
+
+
+              </div>
+              <div class="group w-100">
+                <div class="group w-50">
+                  <div class="  bold" style="width: 39%;">TC Vatandaşı</div>
+                  <div class="w-50">
+                    <div class="form-check">
+                      <input style="top:-15px;" formControlName="tcVatandaslikForm"
+                        (click)="checkboxTcCitizen(checkbox)" #checkbox class="form-check-input" type="checkbox"
+                        value="" id="flexCheckDefault" />
+                    </div>
+
+                  </div>
+                </div>
+                <div *ngIf="checkbox.checked" class="group w-50">
+                  <div class="group w-100" style="width: 37%;">
+                    <label class="bold">TC Kimlik No </label>
+                    <div class="form-group">
+                      <input [textMask]="{mask: tcMask}" *ngIf="biletForm.get('tcKimlikKontrolForm')"
+                        formControlName="tcKimlikKontrolForm" (change)="TCKimlikKontrolu(tcNo)" #tcNo tcNo
+                        name="tcnumarası" type="text" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <section id="price">
+
+
+                <div class="row">
+                  <div class="col-md-3">&nbsp;</div>
+                  <div class="col-md-3">Adet</div>
+                  <div class="col-md-3">Birim Fiyat</div>
+                  <div class="col-md-3">&nbsp;</div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-3">Yetiskin</div>
+                  <div class="col-md-3">
+                    <div class="form-Count">
+                      <i (click)="decrement('yetiskin')" class="decrementYesitkin fa fa fa-minus"></i>
+                      <input type="text" formControlName="yetiskinSayisi" #cocuk for="cocukCount">
+                      <i (click)="increment('yetiskin')" class="decrementYesitkin fa fa-plus"></i>
+                    </div>
+                  </div>
+                  <div class="col-md-3">{{selectedTicket.body?.yetiskinUcret}}</div>
+                  <div class="col-md-3"><span
+                      *ngIf="biletForm.get('yetiskinSayisi').value">{{selectedTicket.body.yetiskinUcret*biletForm.get('yetiskinSayisi').value }}
+                      TL</span></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">Çocuk</div>
+                  <div class="col-md-3">
+                    <div class="form-Count">
+                      <i (click)="decrement('cocuk')" class="decrementCocuk fa fa fa-minus"></i>
+                      <input type="text" formControlName="cocukSayisi" #cocuk for="cocukCount">
+                      <i (click)="increment('cocuk')" class="incrementCocuk fa fa-plus"></i>
+                    </div>
+                  </div>
+                  <div class="col-md-3">{{selectedTicket.body?.cocukUcret}}</div>
+                  <div class="col-md-3">
+                    <div>
+                      <span
+                        *ngIf="biletForm.get('cocukSayisi').value!=0">{{selectedTicket.body.cocukUcret*biletForm.get('cocukSayisi').value}}
+                        TL</span>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- indirim yokken -->
+                <div class="row" *ngIf="this.productService.Discount$?.value==null">
+                  <div class="col-md-3">&nbsp;</div>
+                  <div class="col-md-3">&nbsp;</div>
+                  <div class="col-md-3">
+                    <div style="font-weight: 600; font-size:1.1rem;">
+                      Toplam Ücret
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div style="padding-top: 1px;">{{biletForm.get('toplamFiyat')?.value}} TL</div>
+                  </div>
+                </div>
+                <!-- indirim varken -->
+                <div class="row" *ngIf="this.productService.Discount$?.value?.body?.discount>0">
+                  <div class="col-md-3">Toplam Ucret</div>
+                  <div class="col-md-3">
+                    <div *ngIf="biletForm.get('toplamFiyat')?.value!=0" class="notDiscount">
+                      {{biletForm.get('toplamFiyat').value*100/(100-this.productService.Discount$?.value?.body?.discount)}}
+                      TL
+                    </div>
+
+                  </div>
+                  <div class="col-md-3" style="display: flex;">
+                    <div class="box">
+                      <div class="inner">
+                        <div class="coupon">
+                          <span class="scissors">✂</span>
+                          <span class="code">%{{this.productService.Discount$?.value?.body?.discount}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="discountPrice" *ngIf="biletForm.get('toplamFiyat')?.value!=0">
+                      {{biletForm.get('toplamFiyat')?.value}} TL</div>
+                  </div>
+                </div>
+
+
+              </section>
+              <!-- <table class="table" *ngIf="selectedTicket.body">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="width: 20%;">&nbsp;</th>
+                      <th scope="col" style="padding-left: 42px;width: 40%;">Adet</th>
+                      <th scope="col">Birim Fiyat</th>
+                      <th scope="col">&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" style="font-size: 1.1rem;">Yetiskin</th>
+                      <td>
+                        <div class="form-Count">
+                          <i (click)="decrement('yetiskin')" class="decrementYesitkin fa fa fa-minus"></i>
+                          <input type="text" formControlName="yetiskinSayisi" #cocuk for="cocukCount">
+                          <i (click)="increment('yetiskin')" class="decrementYesitkin fa fa-plus"></i>
+                        </div>
+                      </td>
+                      <td>{{selectedTicket.body.yetiskinUcret}}</td>
+                      <td><span
+                          *ngIf="biletForm.get('yetiskinSayisi').value">{{selectedTicket.body.yetiskinUcret*biletForm.get('yetiskinSayisi').value }}
+                          TL</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row" style="font-size: 1.1rem;">Çocuk</th>
+                      <td>
+                        <div class="form-Count">
+                          <i (click)="decrement('cocuk')" class="decrementCocuk fa fa fa-minus"></i>
+                          <input type="text" formControlName="cocukSayisi" #cocuk for="cocukCount">
+                          <i (click)="increment('cocuk')" class="incrementCocuk fa fa-plus"></i>
+                        </div>
+                      </td>
+                      <td>{{selectedTicket.body.cocukUcret}}</td>
+                      <td>
+                        <div>
+                          <span
+                            *ngIf="biletForm.get('cocukSayisi').value!=0">{{selectedTicket.body.cocukUcret*biletForm.get('cocukSayisi').value}}
+                            TL</span>
+                        </div>
+
+                      </td>
+                    </tr>
+                    <tr *ngIf="this.productService.Discount$?.value==null">
+                      <th scope="row">&nbsp;</th>
+                      <td>&nbsp;</td>
+                      <td>
+                        <div style="font-weight: 600; font-size:1.1rem;">
+                          Toplam Ücret
+                        </div>
+                      </td>
+                      <td>
+                        <div style="padding-top: 1px;">{{biletForm.get('toplamFiyat')?.value}} TL</div>
+                      </td>
+                    </tr>
+
+                    <tr *ngIf="this.productService.Discount$?.value?.body?.discount>0">
+                      <th scope="row">Toplam Ucret</th>
+                      <td>
+                        <div *ngIf="biletForm.get('toplamFiyat')?.value!=0" class="notDiscount">
+                          {{biletForm.get('toplamFiyat').value*100/(100-this.productService.Discount$?.value?.body?.discount)}}
+                        </div>
+
+                      </td>
+                      <td>
+                        <div class="box">
+                          <div class="inner">
+                            <div class="coupon">
+                              <span class="scissors">✂</span>
+                              <span class="code">%{{this.productService.Discount$?.value?.body?.discount}}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div style="padding-top: 1px;" *ngIf="biletForm.get('toplamFiyat')?.value!=0">
+                          {{biletForm.get('toplamFiyat')?.value}} TL</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table> -->
+
+
+            </div>
+            <div class="w-100 groupFiyatGenel-button">
+              <button #submit type="submit" class="btn btnOnay btnFiyat">
+                Onayla
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- ALT KISIM -->
+
+        <div
+          *ngIf="biletSatisDurum||(biletBilgiOnay && form.valid &&((this.selectedTicket.body?.VatandaslikZorunlulugu&&!biletForm.get('tcDurumForm')?.value)||((!this.selectedTicket.body?.VatandaslikZorunlulugu&&biletForm.get('tcDurumForm')?.value)))) "
+          class="form-users__bottom m-3">
+
+          <div class=" bg-danger text-white p-3 ml-3 mr-3"
+            *ngIf="(kartForm.invalid ||iletisimForm.invalid)&&onayButonBoolean">
+            <h3 class="border-bottom mb-2 p-2"> Bilgilendirme</h3>
+            <ul>
+              <li *ngFor="let error of getFormValidationErrors(kartForm)">
+                {{ error }}
+              </li>
+              <li *ngFor="let error of getFormValidationErrors(iletisimForm)">
+                {{ error }}
+              </li>
+            </ul>
+            <div class="hata-footer pb-2">
+              <h5 class="mt-2">
+                *** Tüm hataları düzeltip liste bittiğinde onaylayınız.
+              </h5>
+            </div>
+          </div>
+
+          <div class="bottom_main  ">
+
+            <div class="bottom   bottom-iletisim ">
+
+              <div class="header w-100">
+                <div>
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="bold"> İletişim Bilgisi</div>
+              </div>
+              <form (change)="onayButonFalse()" [formGroup]="iletisimForm" formIletisim #formIletisim="ngForm">
+                <div id="contact" class=" w-100">
+                  <div class="row w-100  ">
+                    <div class="col-md-4"> <label style="width: 100%;" class="bold">İsim Soy isim </label></div>
+
+                    <div class="col-md-8 form-group">
+                      <input required formControlName="isim" name="isim" type="text" class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="row w-100">
+                    <div class="col-md-4"> <label style="width: 100%;" class="bold">Email </label></div>
+                    <div class="col-md-8"> <input required formControlName="email" name="email" type="email"
+                        class="form-control" /></div>
+
+
+                  </div>
+
+                  <div class="row w-100   ">
+                    <div class="col-md-4"> <label style="width: 100%;" class="bold">Telefon </label></div>
+
+                    <div class="form-group col-md-8">
+                      <input formControlName="telefon" required name="telefon" type="text" class="form-control"
+                        placeholder="(05xx) xxx xx xx " [textMask]="{mask: telMask}" />
+                    </div>
+
+                  </div>
+                </div>
+
+              </form>
+            </div>
+            <div class="bottom  bottom-card ">
+
+              <div class="header w-100">
+                <div>
+                  <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div class="bold"> Kart Bilgisi</div>
+              </div>
+              <form (change)="onayButonFalse()" [formGroup]="kartForm" formKart #formKart="ngForm">
+                <div id="contact" class="  w-100">
+                  <div class="group w-100   ">
+                    <label class="bold">Kart Numarası </label>
+                    <div class="form-group">
+                      <input formControlName="numara" required name="KartNumarası" type="text" class="form-control"
+                        [textMask]="{mask: kartMask}" />
+                    </div>
+                  </div>
+                  <div class="group card-detail w-100   ">
+
+                    <div class="form-group w-33 ">
+                      <label class="bold">Ay</label>
+                      <input formControlName="ay" required name="ay" type="text" placeholder="__" class="form-control"
+                        [textMask]="{mask: monthMask}" />
+                    </div>
+                    <div class="form-group w-33">
+                      <label class="bold">Yıl</label>
+                      <input formControlName="yıl" required name="yıl" type="text" placeholder="__" class="form-control"
+                        [textMask]="{mask: yearMask}" />
+                    </div>
+                    <div class="form-group w-33">
+                      <label class="bold">Cvc</label>
+                      <input formControlName="cvc" required name="cvc" type="text" placeholder="___"
+                        class="form-control" [textMask]="{mask: cvcMask}" />
+                    </div>
+                  </div>
+
+                  <div class="row w-100">
+
+                    <div class="form-check col-md-9  ">
+
+                      <input formControlName="sozlesme" class="bold" class="form-check-input" type="checkbox"
+                        id="flexCheckDefault" /> <span class="pointer"><i data-toggle="modal" style="margin-right: 5px;"
+                          data-target="#exampleModalLong"> Kullanım
+                          Koşulları'nı</i>kabul
+                        ediyorum.</span>
+
+                    </div>
+                    <button data-toggle="modal" data-target="#exampleModal" (click)="BuyProduct()" type="submit"
+                      class=" col-md-3 btnOnay">
+                      Onayla
+                    </button>
+                  </div>
+                  <div class="row">
+
+
+                    <div class="biletOnay mt-3 p-2  "
+                      *ngIf="biletSatisDurum||(kartForm.valid &&iletisimForm.valid&&onayButonBoolean)">
+                      <i class="fa-solid fa-ticket fa-2x"></i>
+                      <h6 style="color:rgb(0, 255, 0);">
+                        Biletiniz onaylandi.
+                      </h6>
+
+                    </div>
+                  </div>
+
+                </div>
+
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- CARD BİLGİ  -->
+      <!-- SAĞ KISIM -->
+
+      <div *ngIf="biletForm.get('biletAdiForm')?.value" class="lead form-users__right p-3 ">
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="    border-bottom: none;">
+          <li class="nav-item">
+            <a class="nav-link active" id="Bilet-tab" data-toggle="tab" href="#Bilet" role="tab" aria-controls="Bilet"
+              aria-selected="true"> <i class="fa-solid fa-credit-card"></i> Bilet</a>
+          </li>
+          <li class="nav-item" *ngIf="selectedTicket.body.timeLineShow">
+            <a class="nav-link" id="timeline-tab" data-toggle="tab" href="#timeline" role="tab" aria-controls="timeline"
+              aria-selected="false">Zaman Çizelgesi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map"
+              aria-selected="false">Harita</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="Bilet" role="tabpanel" aria-labelledby="Bilet-tab">
+            <ng-template [ngTemplateOutlet]="card"></ng-template>
+          </div>
+          <div class="tab-pane fade" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+            <ng-template [ngTemplateOutlet]="timeline"></ng-template>
+          </div>
+          <div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab"><img
+              src="../../../assets/fixing.svg" style="width: 100%;" alt=""></div>
+        </div>
+        <!-- <div class="card" style="width: 100%">
+          <div class="header w-100">
+            <div>
+              <i class="fa-solid fa-credit-card"></i>
+            </div>
+            <div class="bold"> Bilet Detayı</div>
+          </div>
+          <img class="card-img-top" src='{{selectedTicket.body.urlLink}}' height="240" alt="Card image cap" />
+          <div class="card-header text-center">
+            <h4 class=" card-title bold">{{selectedTicket.body.eventAdi}}</h4>
+            <h6><b>{{selectedTicket.body.biletTuru}}</b></h6>
+
+          </div>
+          <div class="card-body">
+
+            <p class="card-text">
+              {{selectedTicket.body.eventDetayi}} <br>
+            </p>
+            <div class="cursor" data-toggle="modal" data-target=".bd-detail-modal-lg"
+              *ngIf="selectedTicket.body?.eventInformationShow"><i style="color: var(--primaryColor);"
+                class="fa-solid fa-circle-info"></i><a style="color: var(--primaryColor);font-size: 1.1rem;"> Bilet
+                Detayı</a></div>
+          </div>
+          <ul *ngIf="biletForm.get('toplamFiyat')?.value!=0 ||biletForm.get('tarih')?.value "
+            class="list-group list-group-flush">
+            <li *ngIf="biletForm.get('tarih')?.value" class="list-group-item" style="display: flex;">
+              <div class="w-50" (click)="TarihDuzelt()">
+                <b>Tarih:</b> {{ getTarih() }}
+              </div>
+
+            </li>
+            <li *ngIf="(biletForm.get('yetiskinSayisi')?.value!=0)||biletForm.get('cocukSayisi')?.value!=0"
+              class="list-group-item" style="display: flex;">
+              <div *ngIf="biletForm.get('yetiskinSayisi')?.value!=0" class="w-50 ">
+                <b>Yetiskin:</b> {{biletForm.get('yetiskinSayisi')?.value}}
+              </div>
+              <div *ngIf="biletForm.get('cocukSayisi')?.value!=0" class="w-50 ">
+                <b>Çocuk:</b> {{biletForm.get('cocukSayisi')?.value}}
+              </div>
+            </li>
+            <li *ngIf="biletForm.get('toplamFiyat')?.value!=0" class="list-group-item "> <b>Fiyat:</b>
+              {{biletForm.get('toplamFiyat')?.value}} TL</li>
+            <li class="CardBiletOnay text-center" *ngIf="biletSatisDurum">
+              <h5>
+                Biletiniz onaylandi. Görmek için <a [routerLink]="['/reservation/'+newProduct.body.PnrId]"
+                  target="_blank" class="text-danger">Tıklayınız.</a>
+              </h5>
+
+            </li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- hiç yok ise -->
+<section id="notTickets" *ngIf="this?.tickets?.length==0">
+  <div class="notTicketsMain">
+    <div class="notTicketsMain__header">
+      <div> <img
+          [src]="(firebaseSS.settingsLogoUrl ? firebaseSS.settingsLogoUrl : 'https://portalv3.s3.eu-central-1.amazonaws.com/156/MyHotelFiles/78530f22-744a-42b0-b81e-8460cf83e567_balogo.png')"
+          height="75" alt="navbarMainLogo"></div>
+    </div>
+    <div class="notTicketsMain_detail">
+      <h4>Aktif bilet bulunmamaktadır. Lütfen Başka etkinliklere göz atınız.</h4>
+    </div>
+  </div>
+  <ticket [selectedEventsGeneralID]="selectedEventsGeneralID"></ticket>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Sözlesme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 style="font-weight: bold;">
+          Bilet Antalya Satış Politikaları ( Kullanım Koşulları ve Satış Sözleşmesi )
+
+        </h5> <br>
+
+        6563 sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun’un (“Kanun”) 3 üncü maddesi uyarınca, Bilet
+        Antalya
+        ile ilgili tanıtıcı bilgilerin tümü, sitemizin “Hakkımızda” başlıklı bölümünde güncel şekilde yer almaktadır.
+        Bilet Antalya olarak hedefimiz; biletinizi en kısa sürede, en kolay şekilde satın almanızı sağlamaktır.
+        Aşağıdaki Satış Politikamızı ve Satış Sözleşmemizi, müşteri olarak sizi memnun kılacak ve biletantalya.com da
+        satın alım süreci konusunda sizi bilgilendirecek şekilde tasarladık. Bu Satış Politikası ve Sözleşmemiz,
+        Kullanım Koşullarımızın da bir bölümünü oluşturur. Web sitemize üye olarak ve/veya bilet alım işlemlerini
+        gerçekleştirerek, Kullanım Koşullarını, Satış Politikası ve Sözleşme hükümlerini ve Gizlilik Beyanını
+        okuduğunuzu, anladığınızı ve içeriklerini aynen kabul etmiş sayılacağınızı belirtir, satış politikası ve/veya
+        sözleşme hükümlerinin aksine bir talebinizin ya da şikayetinizin olması durumunda, herhangi bir bilet alım
+        işlemi gerçekleştirmeden ve siparişinizi onaylamadan önce, bizimle sitemizde belirtilen iletişim numaralarından
+        iletişime geçmenizi öneririz. Sitemizden bilet satın alarak ve siparişinizi onaylayarak, işbu Sözleşme
+        hükümlerine bağlı olduğunuzu kabul etmektesiniz. Dolayısı ile sitemizden bilet satın aldığınızda, tur/ etkinlik
+        biletleri ile ilgili tüm sürece, prosedürlere ve işlemlere aşağıda yer alan Sözleşme hükümlerinin aynen
+        uygulanacağını önemle belirtiriz.<br>
+        <br>
+        Ayrıca, siparişinizi onaylayarak; bileti satın almadan önce; *gerekli tüm bilgileri ve iletişim adreslerini *
+        satın aldığınız bilete ve hizmete ilişkin tüm özellikleri ve ayrıca tüm vergiler dahil toplam bilet/hizmet
+        fiyatını *Ödeme bilgileri *Mesafeli Sözleşmeler Yönetmeliği’nin 15 (g) maddesine istinaden cayma hakkınızın
+        olmadığını ve neticeten sözleşmede düzenlenen tüm hükümleri bildiğinizi yazılı olarak kabul, beyan ve taahhüt
+        etmektesiniz. Siparişlerinizi onaylamadan önce, sizlerden onayınız kapsamında, yazılı şekilde ön bilgilendirme
+        onayı alındığını ve ön bilgilendirme onayının işbu Sözleşmenin ayrılmaz bir parçası olduğunu ayrıca ve önemle
+        vurgularız. İlaveten, işbu sözleşme ve ön onay ile “bilet satın alma siparişinizin onaylanması durumunda ödeme
+        yükümlülüğü altına gireceğiniz” konusunda açık ve anlaşılır şekilde bilgilendirildiğinizi de önemle bilmenizi
+        isteriz.
+        <br><br>
+        Bilet ile İlgili Şart ve Koşullar<br>
+        <br>
+        1-Bilet Antalya, yetkili bilet satış acentesi olarak, biletini satın aldığınız turu /etkinliği düzenleyen
+        “organizatör, etkinlik mekanı, kulüp veya tiyatrolar”( “Etkinlik Organizatörü”) adına bilet satar, ancak bilet
+        fiyatlarını veya oturma yerlerini belirleme konusunda hak ve yetkiye sahip değildir. Ayrıca Organizasyon
+        firması
+        etkinlik / tur için uygun görmediği kişileri, bilet ücretini iade ederek etkinlik mekanına almama hakkına
+        sahiptir. İşletme genel kuralları içerisinde giriş – çıkış işlemi yapmaktadır.
+        <br><br>
+        2-Biletler, internet, çağrı merkezi, gibi çeşitli noktalar aracılığıyla satılır. Tüm satış kanalları aynı
+        biletleme havuzuna eriştiğinden popüler etkinliklerde biletler hızlı bir şekilde tükenebilir. Bazı durumlarda
+        etkinlikten önce Etkinlik /Tur Organizatörü’nün kararı ile ilave bilet satışa çıkarılabilir ancak bu kapasite
+        veya bilet mevcudiyeti konusunda herhangi bir kontrol gücüne sahip bulunmamakla birlikte bu kapsamda herhangi
+        bir garanti de veremeyeceğimizi belirtiriz.
+        <br><br>
+        3-Etkinlik / Tur Organizatörü çeşitli sebeplerle etkinlikleri/ turları iptal edebilir veya tarihlerini
+        değiştirebilir. Bu durumda uygulanacak prosedürü organizatör belirler ve duyurur. Etkinliğin/turun iptal
+        edilmesinden ve/veya tarihinin değiştirilmesinden Bilet Antalya sorumlu olmayıp, Organizatör sorumludur. Bir
+        turun/etkinliğin iptal edilmesi veya tarihinin değiştirilmesi durumunda Etkinlik Organizatörü'nden gerekli
+        yetkiyi almamız şartına bağlı olarak bilet hamillerini söz konusu iptalden veya değişiklikten haberdar etmek
+        için makul gayreti göstereceğiz.
+        <br><br>
+        4-Kural olarak, tüm bilet satışları kesindir. Mesafeli Sözleşmeler Yönetmeliği’nin 15 (g) maddesine istinaden
+        satın aldığınız biletlere dair cayma hakkınız bulunmamaktadır. Etkinliğin / turun iptali veya ertelenmesi
+        durumunda, Etkinlik Organizatörü geri ödeme şartları konusunda bazı sınırlandırmalar getirebilme hakkına sahip
+        olduğu gibi, programda değişiklik yapma hakkına da sahiptir. Bu kapsamda Bilet Antalya hiçbir sorumluluk
+        üstlenmez.
+        <br><br>
+        5-Biletantalya.com üzerinden , tedarikçi firmalar tarafından sağlanan extra servisler için ( transfer,rafting,
+        yat turu vs.) 4925 sayılı Karayolu Taşıma Kanunu’na ve Deniz Turizmi Yönetmeliği’ne istinaden taşıma yetki
+        belgesi ve Karayolu & Deniz Yolu Taşımacılığı Zorunlu Koltuk Ferdi Kaza Sigortası Genel Şartları , yüklenici
+        firmaya ait olup, bu hizmetlerin belgelerinden ve içeriklerinden biletantalya.com sorumlu değildir.
+        <br><br>
+        6-Bilet Antalya, ilgili hizmet bedeli dışında, biletlere/ bilet satışlarına ve/veya tur / etkinliklere ilişkin
+        olarak başkaca hiçbir yükümlülük, taahhüt ve sorumluluk altında değildir. Bilet Antalya’nın sorumluluğunun bu
+        madde ile sınırlı olduğunu ve her ne nam adı altında olursa olsun, işbu maddedeki sorumluluk limiti dışında,
+        Bilet Antalya’yı sorumlu kabul etmeyeceğinizi önceden kabul, beyan ve taahhüt etmiş sayılırsınız.
+        <br><br>
+        7- Bileti satın alarak ve siparişi onaylayarak, işbu sözleşme hükümlerini aynen kabul etmiş sayılırsınız.
+        <br><br>
+        Bu şart ve koşulların tamamı Türk Hukukuna tabidir. Bilet Antalya; biletinizi satın almadan önce sözleşme
+        hükümleri ve içeriği konusunda, tüm tüketicileri önceden bilgilendirmiş olup, bileti satın alarak ve siparişi
+        onaylayarak, işbu sözleşmenin düzenlemeleri hakkında tarafınıza ön bilgilendirme yapıldığını da kabul etmiş
+        sayılacağınızı ve bu maddenin yazılı delil vasfında ispat vasıtası olduğunu da belirtiriz.
+        <br>
+        İşbu Sözleşmeden ve/veya hizmet ya da bilet satın alma işlemlerinden dolayı herhangi bir ihtilafın doğması
+        durumunda, uyuşmazlığı öncelikle sulhen gidermeye çalışmak temel hedefimizdir.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DETAİL -->
+<div class="modal fade bd-detail-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModalLabel">Bilet Detayı ve Bilgilendirme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre>
+          {{selectedTicket.body?.eventInformation}}
+        </pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #card>
+  <div class="card" style="width: 100%">
+    <!-- <div class="header w-100">
+      <div>
+        <i class="fa-solid fa-credit-card"></i>
+      </div>
+      <div class="bold"> Bilet Detayı</div>
+    </div> -->
+
+    <div id="discount" *ngIf="this.productService.Discount$?.value?.body?.discount>0">
+      %{{this.productService.Discount$?.value?.body?.discount}}</div>
+    <img class="card-img-top" src='{{selectedTicket.body.urlLink}}' height="240" alt="Card image cap" />
+    <div class="card-header text-center">
+      <h4 class=" card-title bold">{{selectedTicket.body.eventAdi}}</h4>
+      <h6><b>{{selectedTicket.body.biletTuru}}</b></h6>
+
+    </div>
+    <div class="card-body">
+
+      <p class="card-text">
+        {{selectedTicket.body.eventDetayi}} <br>
+      </p>
+      <div class="cursor" data-toggle="modal" data-target=".bd-detail-modal-lg"
+        *ngIf="selectedTicket.body?.eventInformationShow"><i style="color: var(--primaryColor);"
+          class="fa-solid fa-circle-info"></i><a style="color: var(--primaryColor);font-size: 1.1rem;"> Bilet
+          Detayı</a></div>
+    </div>
+    <ul *ngIf="biletForm.get('toplamFiyat')?.value!=0 ||biletForm.get('tarih')?.value "
+      class="list-group list-group-flush">
+      <li *ngIf="biletForm.get('tarih')?.value" class="list-group-item" style="display: flex;">
+        <div class="w-50" (click)="TarihDuzelt()">
+          <b>Tarih:</b> {{ getTarih() }}
+        </div>
+
+      </li>
+      <li *ngIf="(biletForm.get('yetiskinSayisi')?.value!=0)||biletForm.get('cocukSayisi')?.value!=0"
+        class="list-group-item" style="display: flex;">
+        <div *ngIf="biletForm.get('yetiskinSayisi')?.value!=0" class="w-50 ">
+          <b>Yetiskin:</b> {{biletForm.get('yetiskinSayisi')?.value}}
+        </div>
+        <div *ngIf="biletForm.get('cocukSayisi')?.value!=0" class="w-50 ">
+          <b>Çocuk:</b> {{biletForm.get('cocukSayisi')?.value}}
+        </div>
+      </li>
+      <li *ngIf="biletForm.get('toplamFiyat')?.value!=0" class="list-group-item "> <b>Fiyat:</b>
+        {{biletForm.get('toplamFiyat')?.value}} TL</li>
+      <li class="CardBiletOnay text-center" *ngIf="biletSatisDurum">
+        <h5>
+          Biletiniz onaylandi. Görmek için <a [routerLink]="['/reservation/'+newReservation.body.PnrId]" target="_blank"
+            class="text-danger">Tıklayınız.</a>
+        </h5>
+
+      </li>
+    </ul>
+  </div>
+</ng-template>
+<ng-template #timeline>
+  <div class="container pt-25">
+
+    <div class="row">
+      <div>
+        <!-- Timeline -->
+        <ul class="timeline">
+          <li class="timeline-item bg-white rounded ml-3 p-4 shadow"
+            *ngFor="let timeline of selectedTicket.body.timeLineDetail">
+            <div class="timeline-arrow"></div>
+            <h2 class="h5 mb-0">{{timeline.title}}</h2><span class="small text-gray"><i
+                class="fa fa-clock-o mr-1"></i>{{timeline.hour}}</span>
+            <p class="text-small mt-2 font-weight-light">{{timeline.detail}}</p>
+          </li>
+
+        </ul><!-- End -->
+
+      </div>
+    </div>
+  </div>
+</ng-template>

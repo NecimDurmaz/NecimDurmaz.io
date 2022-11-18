@@ -1,0 +1,192 @@
+.col-md-4,
+.col-md-8 {
+  margin: 0px;
+  padding: 0px;
+}
+.tab-content {
+  padding: 20px;
+}
+.tab-footer {
+  padding-right: 20px;
+  margin-bottom: 10px;
+}
+label {
+  width: 100%;
+  text-align: center;
+}
+input,
+textarea {
+  width: 100%;
+}
+.ticket-information {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ticket-detail-main {
+  background: rgb(23, 162, 184);
+  background: linear-gradient(
+    0deg,
+    rgba(23, 162, 184, 1) 0%,
+    rgba(233, 218, 193, 1) 48%
+  );
+}
+/* timeline */
+.timeline-main .form-group {
+  display: flex;
+}
+.timeline-header {
+  margin-bottom: 6px;
+}
+.timeline-stage {
+  margin-top: 50px;
+  background-color: #e8e7e7;
+  padding: 10px;
+}
+
+.timelane-stage-main {
+  margin-top: 25px;
+  padding: 5px;
+}
+.w-100 {
+  width: 100%;
+}
+.bt {
+  border-bottom: 1px solid black;
+}
+
+.number {
+  border: 1px solid black;
+  border-radius: 50%;
+  /* padding: 20px; */
+  padding: 0px 10px;
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
+  font-weight: bold;
+  /* font-size: 19px; */
+  margin-bottom: 7px;
+}
+.header-main {
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* form-count */
+.form-Count {
+  display: flex;
+  gap: 20px;
+  width: 50%;
+  align-items: baseline;
+}
+
+.form-Count i {
+  opacity: 0.8;
+  cursor: pointer;
+
+  font-size: 17px;
+  border: 3px solid rgb(81, 77, 77);
+  border-radius: 50%;
+}
+
+.form-Count i:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.form-Count input {
+  background-color: white;
+  width: 33px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+/* timeline */
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* Timeline holder */
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+/* Timeline vertical line */
+ul.timeline:before {
+  content: " ";
+  background: rgb(23, 162, 184);
+  background: linear-gradient(
+    180deg,
+    rgba(23, 162, 184, 1) 0%,
+    rgba(233, 218, 193, 1) 68%
+  );
+  display: inline-block;
+  position: absolute;
+  left: 16px;
+  width: 4px;
+  height: 100%;
+  z-index: 400;
+  border-radius: 1rem;
+}
+
+li.timeline-item {
+  margin: 20px 0;
+}
+
+/* Timeline item arrow */
+.timeline-arrow {
+  border-top: 0.5rem solid transparent;
+  border-right: 0.5rem solid #fff;
+  border-bottom: 0.5rem solid transparent;
+  display: block;
+  position: absolute;
+  left: 2rem;
+}
+
+/* Timeline item circle marker */
+li.timeline-item::before {
+  content: " ";
+  background: var(--secondaryColor);
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  left: 11px;
+  width: 14px;
+  height: 14px;
+  z-index: 400;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+body {
+  background: #e8cbc0;
+  background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+  background: linear-gradient(to right, #e8cbc0, #636fa4);
+  min-height: 100vh;
+}
+
+.text-gray {
+  color: #999;
+}
+.nav-tabs .nav-link {
+  background-color: var(--secondaryColor);
+  color: black;
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  color: white;
+}

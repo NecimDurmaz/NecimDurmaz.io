@@ -1,0 +1,25 @@
+<div class="lead event-main container">
+  <div *ngFor="let event of EventsGenerals$.value " class="card event-card mt-3">
+    <div>
+      <div class="discount" *ngIf="mappingDiscount(event)!=-1">%{{mappingDiscount(event) }}</div>
+      <a [routerLink]="['/ticket/{{firebaseSS.Settings$?.value?.body?.ticketDesign}}',event.primaryKey]">
+        <img class="card-img-top" src="{{event.body.urlLink}}" height="200" alt="Card image cap"></a>
+    </div>
+    <div class="card-header">
+      <h4 eventAdi class="card-title">{{event.body.eventAdi}}</h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text"> {{event.body.eventDetayi}}
+      </p>
+    </div>
+    <div class="card-footer">
+
+      <div class="card-footer__btn"> <a [routerLink]="['/ticket/comments',event.primaryKey]"
+          class="btn btnComments">Değerlendirmeler</a></div>
+      <div class="card-footer__btn"> <a [routerLink]="['/ticket/product',event.primaryKey]" class="btn btnBuy">Bilet
+          almak
+          için</a>
+      </div>
+    </div>
+  </div>
+</div>

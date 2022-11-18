@@ -1,0 +1,33 @@
+<div class="body">
+
+  <div class="cards">
+    <div>
+      <a class="card">
+        <img src="https://erspublic.blob.core.windows.net/test/16f72307-307a-9705-8dcc-283b88049000.jpg"
+          class="card__image" alt="" />
+        <div class="card__overlay">
+          <div class="card__header">
+            <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+              <path /></svg>
+
+            <div class="card__header-text">
+              <h1 class="card__title"><b>
+                  <h5>{{Ticket.body.biletTuru}}</h5>
+                </b></h1>
+
+            </div>
+          </div>
+          <p class="card__description">{{eventDetayiLengthValidation()}}
+          </p>
+          <div style="    display: flex;
+          flex-direction: row-reverse;
+           " (click)="DetailTicket()">
+            <a class=" btn btnDetail">Detay
+            </a></div>
+
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>

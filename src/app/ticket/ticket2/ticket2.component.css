@@ -1,0 +1,106 @@
+.card {
+  height: 350px;
+  display: grid;
+  grid-template-columns: minmax(100%, 1fr);
+  grid-template-areas: "stack";
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 2px 2px 20px grey;
+  margin: 10px 0;
+  padding: 0 !important;
+}
+.card img,
+.card figcaption {
+  grid-area: stack;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card figcaption .header {
+  margin-bottom: 10px;
+}
+.card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.card p {
+  color: white;
+  font-size: 15px;
+  padding-left: 20px;
+}
+.card figcaption {
+  grid-area: stack;
+  background-color: #242424e0;
+  transform: translateY(calc(100% - 1rem));
+  transition: transform 600ms;
+  padding-top: 8px;
+  height: 90%;
+}
+.card figcaption .figcaption-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.card figcaption h1 {
+  color: white;
+  font-size: 30px;
+  padding-left: 20px;
+}
+.card:hover {
+  cursor: pointer;
+}
+.card:hover figcaption {
+  transform: translateY(calc(0%));
+  height: 100%;
+
+  font-weight: 100;
+  padding-top: 4px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.card:hover figcaption h1 {
+  font-size: 30px;
+}
+.btnBuy {
+  background-color: var(--primaryColor);
+  border-radius: 5px;
+  opacity: 0.9;
+  color: white !important;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+}
+.btnComments {
+  background-color: var(--secondaryColor);
+  border-radius: 5px;
+  opacity: 0.9;
+  color: black !important;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+}
+.btnBuy:hover,
+.btnComments:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.discount {
+  border-radius: 200px 0px 0px 200px;
+  -webkit-border-radius: 200px 0px 0px 200px;
+  -moz-border-radius: 200px 0px 0px 200px;
+  width: 25%;
+  background-color: red;
+  color: white;
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}

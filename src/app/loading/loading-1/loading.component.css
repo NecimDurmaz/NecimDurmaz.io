@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main {
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.load {
+  width: 330px;
+  height: 330px;
+  display: flex;
+  position: absolute;
+  top: 35%;
+  justify-content: center;
+  align-items: center;
+  background-color: #f35430;
+  border-radius: 50%;
+  animation: shadow 1.4s ease-in-out infinite;
+}
+.fingers {
+  background-color: #f7c86b;
+  width: 45px;
+  margin-right: 5px;
+  border-radius: 15px 15px 25px 25px;
+  position: relative;
+  animation: move 1.5s ease-in-out infinite;
+}
+.fingers:nth-child(1) {
+  height: 130px;
+  top: 5px;
+  margin-left: 24px;
+}
+.fingers:nth-child(2) {
+  height: 150px;
+  animation-delay: 0.1s;
+}
+.fingers:nth-child(3) {
+  height: 170px;
+  top: -5px;
+  animation-delay: 0.2s;
+}
+.fingers:nth-child(4) {
+  height: 150px;
+  animation-delay: 0.3s;
+}
+.pollex {
+  width: 60px;
+  height: 45px;
+  position: relative;
+  top: 5px;
+  background-color: #f7c86b;
+  border-radius: 5px 15px 45px 5px;
+  animation: move2 1.5s linear infinite;
+  animation-delay: 0.4s;
+}
+.nails {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px 50px 20px 20px;
+  background-color: #faf5c3;
+  position: absolute;
+  bottom: 13px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.fingers::before,
+.fingers::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 5px;
+  background-color: #e69b4c;
+  border-radius: 5px;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.fingers::before {
+  top: 20px;
+}
+@keyframes move {
+  0% {
+    transform: scaleY(1) translateY(0px);
+  }
+  20% {
+    transform: scaleY(0.8) translateY(-30px);
+  }
+  30% {
+    transform: scaleY(0.8) translateY(-30px);
+  }
+  40% {
+    transform: scaleY(1) translateY(0px);
+  }
+  100% {
+    transform: scaleY(1) translateY(0px);
+  }
+}
+@keyframes move2 {
+  0% {
+    transform: scaleY(1) translateY(0px);
+  }
+  20% {
+    transform: scaleY(0.9) translateY(-20px);
+  }
+  30% {
+    transform: scaleY(0.9) translateY(-20px);
+  }
+  40% {
+    transform: scaleY(1) translateY(0px);
+  }
+  100% {
+    transform: scaleY(1) translateY(0px);
+  }
+}
+@keyframes shadow {
+  0% {
+    box-shadow: 0 0 0 5px #fff;
+  }
+  100% {
+    box-shadow: 0 0 0 20px #f35430;
+  }
+}

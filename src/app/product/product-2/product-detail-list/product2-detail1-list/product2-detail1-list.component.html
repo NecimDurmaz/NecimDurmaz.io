@@ -1,0 +1,25 @@
+ <div class="body">
+   <div class="card" (mouseenter)="showDetail()" (mouseleave)="showDetail()">
+     <div class="lines"></div>
+     <div class="imgBx">
+       <img src="https://erspublic.blob.core.windows.net/test/16f72307-307a-9705-8dcc-283b88049000.jpg" alt="">
+     </div>
+     <div class="content">
+       <div class="details">
+         <div class="header">
+           <h2 [ngClass]="{'mb-115':isDetail!=true} ">Antalya Aquarium </h2>
+         </div>
+         <div class="data" *ngIf="isDetail">
+           <h3>40'Dan Fazla Tematik Akvaryum, Dünyanın En Büyük Tünel Akvaryumu,Gerçek Boyutlarında Uçak Ve
+             Gemi Batığı, 200'Den Fazla KöpekBalığı Antalya Akvaryum'da! Avantajlı biletler
+             Biletantalya.com'da! Her gün 10:00 - 20:00 saatleri arası ziyarete açıktır. Çocuk seçeneği 3-12
+             yaş arası için geçerlidir.</h3>
+         </div>
+         <div class="actionBtn">
+           <button>deneme</button>
+           <button>deneme</button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

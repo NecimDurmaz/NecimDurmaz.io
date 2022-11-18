@@ -1,0 +1,299 @@
+  <div class="ticket-detail-main" style=" margin-top: 20px;    max-width: 1000px">
+    <div style="
+   background-color: rgb(255, 255, 255, 0.3);">
+      <div class="row">
+        <div class="col-md-4" style="background-color: white;">&nbsp;</div>
+        <div class="col-md-8">
+          <section>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist" style="    background-color: white;">
+              <a class="nav-item nav-link active" id="nav-detail-tab" data-toggle="tab" href="#nav-detail" role="tab"
+                aria-controls="nav-detail" aria-selected="true" (click)="showTemplateChange('detail')"><i
+                  class="fa-solid fa-info"></i> Bilgiler</a>
+
+              <a class="nav-item nav-link" id="nav-timeline-tab" data-toggle="tab" href="#nav-timeline" role="tab"
+                aria-controls="nav-timeline" aria-selected="false" (click)="showTemplateChange('timeline')"><i
+                  class="fa-solid fa-bars-staggered"></i> Zaman
+                Çizelgesi</a>
+              <a class="nav-item nav-link" id="nav-map-tab" data-toggle="tab" href="#nav-map" role="tab"
+                aria-controls="nav-map" aria-selected="false" (click)="showTemplateChange('map')"><i
+                  class="fa-solid fa-map"></i> Harita</a>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-4" style="display: flex;align-items:center;flex-direction: row-reverse;padding: 10px;"><img
+            src="../../../assets/{{showTemplate$.value}}.svg" style="width: 97%;"></div>
+        <div class="col-md-8 lead">
+
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" [ngClass]="{' show active': showTemplate$.value=='detail'}" id="nav-detail"
+              role="tabpanel" aria-labelledby="nav-detail-tab">
+              <ng-container [ngTemplateOutlet]="nav_detail_tab"></ng-container>
+            </div>
+            <div class="tab-pane fade " [ngClass]="{' show active': showTemplate$.value=='timeline'}" id="nav-timeline"
+              role="tabpanel" aria-labelledby="nav-timeline-tab">
+              <ng-container [ngTemplateOutlet]="timeline"></ng-container>
+            </div>
+            <div class="tab-pane fade" [ngClass]="{' show active': showTemplate$.value=='map'}" id="nav-map"
+              role="tabpanel" aria-labelledby="nav-map-tab">
+              <ng-container [ngTemplateOutlet]="map"></ng-container>
+            </div>
+          </div>
+          <div class="tab-footer">
+            <div class="row">
+
+              <div class="col-md-12"><button class="buttonPrimary" (click)="addTicket()">Gonder</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #nav_detail_tab>
+    <section id="error" *ngIf="showError">
+
+      <div class="error-main">
+
+        <ul>
+          <li *ngFor="let error of getFormValidationErrors(ticketDetailForm)"><i
+              class="fa-sharp fa-solid fa-circle-exclamation error"></i><span class="error-detail lead">{{error}}</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <form style="height: 100%;" [formGroup]="ticketDetailForm" (ngSubmit)="ticketDetailSubmit()">
+      <div class="row">
+        <div class="col-md-12" style="    padding-left: 0px!important;">
+          <div class="border-b" style="margin-bottom: 15px;">
+            <h3>Bilet Bilgisi</h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+
+          <div class="row" style="height: 100%;">
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Event Adi</label></div>
+                <div> <select style="height: 34.74px;  width: 100%;" formControlName="eventsGeneral">
+                    <option selected>Lütfen Seçiniz</option>
+                    <option *ngFor="let n of EventsGenerals"
+                      [ngValue]="{primaryKey:n.primaryKey,eventAdi:n.body.eventAdi}">
+                      {{n.body.eventAdi}}
+                    </option>
+
+                  </select></div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Bilet Türü</label></div>
+                <div><input type="text" formControlName="biletTuru"> </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Bilet Fotoğraf Linki</label></div>
+                <div><input type="text" formControlName="urlLink"> </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Yerli Yetişkin Ücret</label></div>
+                <div><input type="text" formControlName="yetiskinUcretTC"> </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Yabancı Yetişkin Ücret</label></div>
+                <div><input type="text" formControlName="yetiskinUcretForeign"> </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Yerli Çocuk Ücret</label></div>
+                <div><input type="text" formControlName="cocukUcretTC"> </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div><label>Yabancı Çocuk Ücret</label></div>
+                <div><input type="text" formControlName="cocukUcretForeign"> </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+
+              <!-- <button type="submit" style="width: 100%;" (click)="addTicket()">Kaydet</button> -->
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <div class="col-md-12">
+            <div class="form-group">
+              <div><label>Event Detayı</label></div>
+              <div><textarea cols="30" rows="10" formControlName="eventDetayi"></textarea> </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group ">
+              <div class="ticket-information">
+                <div><label>Event Bilgilendirme</label></div>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="event-information" checked
+                    formControlName="eventInformationShow">
+
+                </div>
+              </div>
+              <div><textarea cols="30" rows="10" formControlName="eventInformation"></textarea> </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </ng-template>
+  <ng-template #timeline>
+    <div class="timeline-main">
+      <div class="timeline-content">
+        <div class="timeline-header">
+          <div class="timeline-title bt">
+            <h3>Zaman Çizelgesi Oluşturma</h3>
+          </div>
+        </div>
+        <div class="timeline-body">
+          <div class="row">
+            <div class="col-md-12" style="
+             margin-bottom: 5px">
+              <div class="form-group">
+                <div class="col-md-6"><label>Zaman Çizelgesi Görünürlük</label></div>
+                <div class="col-md-6 dp-center">
+
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="timeline-visibility">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+
+                <div class="col-md-6"><label>Zaman Çizelgesi Aşama Sayısı</label></div>
+                <div class="col-md-6 dp-center">
+                  <div class="form-Count dp-center">
+                    <i (click)="decrement( )" class=" fa fa fa-minus"></i>
+                    <input type="text" [value]="stageCount">
+                    <i (click)="increment ()" class=" fa fa-plus"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row timelane-stage-main">
+              <div class="col-md-6">
+                <div *ngFor="let item of TimelineDetail; let stage = index">
+
+                  <timeline [Stage]="stage+1" [Timeline]="item" (TimeLaneStage)="TimelineFiiling($event,stage)"
+                    (deleteStage)="deleteTimelineStage($event)">
+                  </timeline>
+                </div>
+                <!-- <div class="  timeline-stage" *ngFor="let item of Timeline$.value; let stage = index">
+                  <div class="row timeline-header bt" style="margin-bottom: 25px;">
+                    <div class="header-main">
+                      <div class="number">
+                        <div>{{stage}}</div>
+                      </div>
+                      <div>
+                        <h3>Aşama</h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="gap: 5px;">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="row w-100">
+                          <div class="col-md-6"><label>Aşama Başlığı</label></div>
+                          <div class="col-md-6"><input type="text" [value]="item?.title"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="row w-100">
+                          <div (click)="goster(time)">goster</div>
+                          <div class="col-md-6"><label> Saat Başlangıcı</label></div>
+                          <div class="col-md-6">
+
+                            <input type="time" #time [value]="item?.hour">
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+
+                      <div><label>Aşama Detayı</label></div>
+                      <div><textarea cols="30" rows="10" [value]="item?.detail"></textarea></div>
+
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-md-6 container pt-25">
+                <div class="header">
+                  <div class="border-b text-center">
+                    <h3>Zaman Çizelgesi Demo</h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div>
+                    <!-- Timeline -->
+                    <ul class="timeline">
+                      <li class="timeline-item bg-white rounded ml-3 p-4 shadow"
+                        *ngFor="let item of TimelineDetail ; let stage = index">
+                        <div class="timeline-arrow"></div>
+                        <h2 class="h5 mb-0"> {{item?.title}}</h2><span class="small text-gray"><i
+                            class="fa fa-clock-o mr-1"></i>{{item?.hour}}</span>
+                        <p class="text-small mt-2 font-weight-light">{{item?.detail}}</p>
+                      </li>
+
+                    </ul><!-- End -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #map>
+    <div class="row">
+      <div class="col-md-12"><img src="../../../assets/fixing.svg" style="width: 100%;"></div>
+    </div>
+    <!-- <div class="row">
+       <div class="col-md-12">
+         <div class="form-group">
+           <div class="row">
+             <div class="col-md-6"><label>Event Detayı</label></div>
+             <div class="col-md-6"><input class="form-control" type="text" #map (change)="mapChange(map)"> </div>
+             <div>{{googleMapSrc}}</div>
+           </div>
+         
+           <div class="row" *ngIf="googleMapSrc?.length>0">
+             <div class="col-md-12"><iframe src="{{googleMapSrc}}" width="600" height="450" style="border:0;"
+                 allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+           </div>
+         </div>
+       </div>
+     </div> -->
+  </ng-template>

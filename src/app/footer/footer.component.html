@@ -1,0 +1,83 @@
+<div class="main">
+
+  <div class="container Top">
+    <div>
+
+      <ol>
+        <li><a [routerLink]="['/webPage/','gizlilik-sozlesmesi']">Gizlilik Politikasi </a></li>
+        <li><a [routerLink]="['/webPage/','aydınlanma-metni']">Aydınlatma Metni</a></li>
+
+      </ol>
+    </div>
+  </div>
+  <div class="">
+    <div class="footerCenterTopCon">
+      <div class="footerCenterItem ng-star-inserted" style="grid-column: span 4 / auto;">
+        <div class="footerCenterTitle">Bağlantılar</div>
+        <ul class="footerCenterLinks">
+          <li><a [routerLink]="['']">Ana Sayfa</a></li>
+          <li class="ng-star-inserted"><a [routerLink]="['/webPage/','aydınlanma-metni']">Aydınlatma Metni</a></li>
+          <!------>
+          <li class="ng-star-inserted"><a [routerLink]="['/webPage/','gizlilik-sozlesmesi']">Gizlilik Politikası</a>
+          </li>
+          <!---->
+
+        </ul>
+      </div>
+      <!---->
+      <!---->
+      <!---->
+      <!---->
+      <div class="footerCenterItem ng-star-inserted" style="grid-column: span 4 / auto;">
+        <div class="footerCenterTitle">Favori Aktiviteler</div>
+        <ul class="footerCenterLinks">
+
+          <li class="ng-star-inserted" *ngFor="let EventsGeneral of EventsGenerals$.value "><a
+              [routerLink]="['/ticket/product',EventsGeneral.primaryKey]" title="Antalya Aquarium">
+              {{EventsGeneral?.body?.eventAdi}} </a></li>
+        </ul>
+      </div>
+      <!---->
+      <!---->
+      <div class="footerCenterItem footerContact" style="grid-column: span 4 / auto;">
+        <div class="footerCenterTitle">İletişim</div>
+        <!---->
+        <div class="footerCenterText ng-star-inserted"><b>Telefon : </b><a href="tel:908507770100">+90 850 777 0 100
+          </a></div>
+        <!---->
+        <!---->
+        <div class="footerCenterText ng-star-inserted"><b>Eposta : </b><a
+            href="mailto:info@biletantalya.com">info@biletantalya.com </a></div>
+        <!---->
+      </div>
+    </div>
+  </div>
+  <div class="bottomMain">
+
+    <div class="container Bottom">
+
+      <div class="footer ">
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook fa-2x" style="color: #0052ff"></i></a>
+          <a href="#"><i class="fab fa-twitter fa-2x" style="color: #00acee"></i></a>
+          <a href="#"><i class="fab fa-youtube fa-2x" style="color: #ff0800"></i></a>
+          <a href="#"><i class="fab fa-linkedin fa-2x" style="color: #0e76a8"></i></a>
+        </div>
+
+        <div class="footerLogosRights">
+          <!---->
+          <div class="footerLogo footerVisa ng-star-inserted"><img width="82px" height="25px"
+              src="https://erspublic.blob.core.windows.net/test/17212506-75d6-331-8220-2f6106a89000.png"></div>
+          <!---->
+          <div class="footerLogo footerMaster ng-star-inserted"><img width="46px" height="28px"
+              src="https://erspublic.blob.core.windows.net/test/17212513-f808-601-823c-9fccb7501000.png"></div>
+          <!---->
+          <div class="footerLogo footerTursab ng-star-inserted"><img width="82px" height="25px"
+              src="https://erspublic.blob.core.windows.net/test/17212526-5e2d-1307-89a9-48a26cd6c000.png"></div>
+          <!---->
+          <!---->
+        </div>
+      </div>
+    </div>
+
+  </div>

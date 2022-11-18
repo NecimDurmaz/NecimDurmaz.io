@@ -1,0 +1,64 @@
+<div class="  timeline-stage">
+  <div class="row timeline-header bt" style="margin-bottom: 25px;">
+    <div class="header-main">
+      <div class="row">
+        <div class="col-md-10 header-main-stage">
+
+          <div class="number">
+            <div>{{Stage}}</div>
+          </div>
+          <div>
+            <h3>Aşama</h3>
+          </div>
+        </div>
+        <div class="col-md-2" style="color: red;" (click)="deleteTimelineStage()"><i class="fa-solid fa-trash"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section id="error" *ngIf="showError">
+
+    <div class="error-main">
+
+      <ul>
+        <li *ngFor="let error of getFormValidationErrors(TimelineForm)"><i
+            class="fa-sharp fa-solid fa-circle-exclamation error"></i><span class="error-detail lead">{{error}}</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <form [formGroup]="TimelineForm" (ngSubmit)="DetailTimeline()">
+    <div class="row" style="gap: 5px;">
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="row w-100">
+            <div class="col-md-6"><label>Başlık</label></div>
+            <div class="col-md-6"><input class="w-100" type="text" formControlName="title"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <div class="row w-100">
+
+            <div class="col-md-6"><label> Saat</label></div>
+            <div class="col-md-6">
+
+              <input class="w-100" type="time" formControlName="hour">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+
+        <div><label>Aşama Detayı</label></div>
+        <div><textarea cols="30" rows="10" class="w-100" formControlName="detail"></textarea></div>
+
+      </div>
+      <div class="col-md-12">
+        <button class="buttonSubmit">Kaydet</button>
+      </div>
+    </div>
+  </form>
+</div>

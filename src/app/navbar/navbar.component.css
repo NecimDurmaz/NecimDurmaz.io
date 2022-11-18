@@ -1,0 +1,254 @@
+*:not(i) {
+  font-family: "Open Sans", Tahoma, Arial, helvetica, sans-serif;
+}
+
+.header-ticket {
+  transform: rotate(-50deg);
+}
+a {
+  text-decoration: none;
+}
+.icon {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: space-between;
+}
+.icon h2 {
+  font-size: 40px;
+}
+::ng-deep .mat-form-field-flex {
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white;
+}
+.header {
+  background-color: var(--primaryColor);
+  color: white;
+}
+.icon .icon-left {
+  display: flex;
+  gap: 15px;
+}
+.icon .icon-left img:hover {
+  cursor: pointer;
+}
+.icon .icon-right a {
+  color: white;
+  font-size: 15px;
+  text-decoration: none;
+  margin-right: 15px;
+  position: relative;
+}
+.icon .icon-right {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.icon .icon-right .icon-right-bottom {
+  display: flex;
+}
+.icon .icon-left h2:hover {
+  color: #f7ff93;
+  cursor: pointer;
+}
+.icon .icon-right a:after {
+  content: " ";
+  width: 100%;
+  height: 2px;
+  border-bottom: 1px solid #f7ff93;
+  position: absolute;
+  left: 0;
+  bottom: -13px;
+  right: 0;
+  display: none;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
+}
+.navbar {
+  color: white;
+}
+.navbar a {
+  color: white;
+}
+.navbar-main {
+  background-color: var(--primaryColor);
+}
+
+.collapse.navbar-collapse {
+  font-size: 21px;
+  justify-content: end;
+}
+.navbar-nav {
+  gap: 10px;
+  align-items: center;
+}
+.navbar-nav a {
+  padding-bottom: 5px;
+}
+.navbar-nav a:hover {
+  border-bottom: 2px solid var(--secondaryColor);
+  color: var(--secondaryColor);
+  transition: all 0.22s;
+  cursor: pointer;
+}
+.navbar-nav li a {
+  font-size: 1rem;
+}
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+@media (max-width: 992px) {
+  .navbar-nav li {
+    width: 15% !important;
+  }
+  .navbar-nav li a {
+    font-size: 0.9rem;
+  }
+  .navbar-nav {
+    align-items: flex-end;
+  }
+}
+@media screen and (max-width: 760px) {
+  .navbar-nav li {
+    width: 25% !important;
+  }
+  .navbar-nav li a {
+    width: 20% !important;
+  }
+  .navbar-nav li a i {
+    width: 20% !important;
+  }
+  .navbar-nav li a {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .navbar-nav li a {
+    flex-direction: column;
+    font-size: 0.95rem;
+    width: 20% !important;
+  }
+  .navbar-nav li {
+    width: 24% !important;
+  }
+
+  .navbar-nav li a i {
+    width: 20% !important;
+  }
+  .navbar-nav li a {
+    font-size: 0.7rem;
+  }
+}
+.colorPalet {
+  /* color: var(--secondaryColor); */
+  font-size: 20px;
+}
+.dropdown-menu.ColorGroupList.show {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #cecece;
+  margin-left: -100px;
+}
+
+.colorMain {
+  width: 35%;
+}
+.colorMain:hover {
+  cursor: pointer;
+}
+.colorTop {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.colorBottom {
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+#dropdownMenuButton {
+  background-color: transparent;
+}
+#dropdownMenuButton {
+  border: none;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+.colorDefault {
+  color: var(--dbPrimaryColor);
+}
+.colorDefault:hover {
+  cursor: pointer;
+}

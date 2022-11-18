@@ -1,0 +1,75 @@
+.w-100 {
+  width: 100%;
+}
+/* timeline */
+.timeline-main .form-group {
+  display: flex;
+}
+.timeline-header {
+  margin-bottom: 6px;
+}
+.timeline-stage {
+  margin-top: 50px;
+  background-color: #e8e7e7;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.w-100 {
+  width: 100%;
+}
+.bt {
+  border-bottom: 1px solid black;
+}
+
+.number {
+  border: 1px solid black;
+  border-radius: 50%;
+  /* padding: 20px; */
+  padding: 0px 10px;
+  background-color: var(--primaryColor);
+  color: var(--secondaryColor);
+  font-weight: bold;
+  /* font-size: 19px; */
+  margin-bottom: 7px;
+}
+.header-main {
+  /* gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+.header-main-stage {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+/* form-count */
+.form-Count {
+  display: flex;
+  gap: 20px;
+  width: 50%;
+  align-items: baseline;
+}
+
+.form-Count i {
+  opacity: 0.8;
+  cursor: pointer;
+
+  font-size: 17px;
+  border: 3px solid rgb(81, 77, 77);
+  border-radius: 50%;
+}
+
+.form-Count i:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.form-Count input {
+  background-color: white;
+  width: 33px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+/* button */

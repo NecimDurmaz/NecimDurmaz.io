@@ -1,0 +1,131 @@
+<nav aria-label="breadcrumb" class="breadcrumbMain" [routerLink]="['/ticket']">
+  <div class="breadcrumbBack">
+    <i class="fa-solid fa-angle-left"></i>
+    <div>
+      BACK</div>
+  </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/ticket']" style=" color: var(--primaryColor);">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Online Ticket</li>
+  </ol>
+</nav>
+<section id="reservation" *ngIf="reservation?.body">
+  <!-- MAİN -->
+  <div class="reservationCardMain">
+    <!-- HEADER MAİN -->
+    <div class="reservationCardMain__headerMain">
+      <!-- HEADER -->
+      <div class="reservationCardMain__header">
+        <div style="display: flex;justify-content:flex-end;padding: 15px;border-bottom: 0.5px solid;">
+          <h5><i>Online Bilet</i></h5>
+        </div>
+
+        <div style="display: flex;justify-content: center;padding: 15px">
+          <h2>{{reservation?.body.biletAdi}}</h2>
+        </div>
+      </div>
+      <!-- İMG -->
+      <div class="reservationCardMain__img"><img style="height: 200px;" src="{{reservation?.body.eventUrl}}" alt="">
+      </div>
+    </div>
+    <!-- BODY MAİN -->
+    <div class="reservationCardBody">
+      <!-- HEADER -->
+      <div class="reservationCardMain__event">
+        <div>
+          <h4 style="font-weight: bold;">{{reservation?.body.biletTuru}} </h4>
+
+        </div>
+        <div>{{timeStampToDate(reservation?.body.tarih)}}</div>
+
+      </div>
+      <hr>
+      <!-- DETAİL MAİN -->
+      <div class="reservationCardMain__eventDetailMain">
+
+        <div class="reservationCardMain__eventDetail__user">
+          <div style="font-weight: bold; width:45%;">Satin Alan</div>
+          <div> {{reservation?.body.kullaniciAdSoyad}} </div>
+        </div>
+
+        <div class="reservationCardMain__eventDetail">
+          <div class="reservationCardMain__eventDetail__left">
+
+            <ol>
+              <li>
+                <div class="reservationCardMain__eventDetail__group" *ngIf="reservation?.body.paymentType">
+                  <div class="reservationCardMain__eventDetail__text">Ödeme Tipi </div>
+                  <div class="reservationCardMain__eventDetail__input">
+                    {{reservation?.body.paymentType}}
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <div class="reservationCardMain__eventDetail__group" *ngIf="reservation?.body.yetiskinSayisi!=0">
+                  <div class="reservationCardMain__eventDetail__text">Yetişkin </div>
+                  <div class="reservationCardMain__eventDetail__input">
+                    {{reservation?.body.yetiskinSayisi}} x {{reservation?.body.yetiskinUcret}} TL
+                    ={{reservation?.body.yetiskinSayisi*reservation?.body.yetiskinUcret}} TL
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <div class="reservationCardMain__eventDetail__group" *ngIf="reservation?.body.cocukSayisi!=0">
+                  <div class="reservationCardMain__eventDetail__text">Çocuk </div>
+                  <div class="reservationCardMain__eventDetail__input">
+                    {{reservation?.body.cocukSayisi}} x {{reservation?.body.cocukUcret}} TL
+                    ={{reservation?.body.cocukSayisi*reservation?.body.cocukUcret}} TL
+                  </div>
+
+                </div>
+              </li>
+              <li>
+                <div class="reservationCardMain__eventDetail__group totalPrice">
+                  <div class="reservationCardMain__eventDetail__text">Toplam Fiyat</div>
+                  <div class="reservationCardMain__eventDetail__input">{{reservation?.body.price}} TL
+                  </div>
+                </div>
+              </li>
+
+            </ol>
+          </div>
+          <!-- <div class="reservationCardMain__eventDetail__right">
+             <div>
+               <div style="font-weight: bold;">Toplam Fiyat</div>
+               <div style="text-align: center;"> {{reservation?.body.price}} TL</div>
+             </div>
+           </div> -->
+        </div>
+        <hr>
+        <div class="reservationCardMain__reservation">
+          <div class="reservationCardMain__reservation__code">
+            <div style="width: 45%;font-weight: bold;"> PNR Numaranız :</div>
+            <div style="font-weight: bold;"> {{reservation?.body.PnrId}}</div>
+          </div>
+          <hr>
+          <div class="reservationCardMain__reservation__qr">
+            <ngx-qrcode [elementType]="elementType" value="{{reservation?.body.PnrId}} " cssClass="aclass">
+
+            </ngx-qrcode>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="noReservation" *ngIf="!reservation?.body">
+  <div class="noReservation__header">
+    <div class="noReservation__header__title" style="margin-bottom: 16px;">
+      <h3>Online Bilet</h3>
+    </div>
+    <div> <img
+        [src]="(firebaseSS.settingsLogoUrl ? firebaseSS.settingsLogoUrl : 'https://portalv3.s3.eu-central-1.amazonaws.com/156/MyHotelFiles/78530f22-744a-42b0-b81e-8460cf83e567_balogo.png')"
+        style="width:200px!important"></div>
+  </div>
+  <div class="noReservation__body">
+    <p>Rezervasyon bulunamadı.Lütfen PNR numaranızı kontrol ediniz.</p>
+  </div>
+</section>

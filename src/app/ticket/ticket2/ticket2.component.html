@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let event of EventsGenerals$.value ">
+
+      <figure class=" card">
+        <div class="discount" *ngIf="mappingDiscount(event)!=-1">%{{mappingDiscount(event) }}</div>
+        <img src="{{event.body.urlLink}}" alt="">
+        <figcaption>
+          <div class="figcaption-detail">
+
+            <div class="header">
+
+              <h1>{{event.body.eventAdi}}</h1>
+
+
+            </div>
+            <div class="detail">
+              <p>{{DetailLengthValidation(event.body.eventDetayi)}}</p>
+              <!-- <p>{{ event.body.eventDetayi }}</p> -->
+            </div>
+            <div class="footer row">
+              <div class="card-footer__btn col-md-6"> <a [routerLink]="['/ticket/comments',event.primaryKey]"
+                  class="btn btnComments">Değerlendirmeler</a></div>
+              <div class="card-footer__btn col-md-6"> <a [routerLink]="['/ticket/product',event.primaryKey]"
+                  class="btn btnBuy">Bilet
+                  almak
+                  için</a>
+              </div>
+            </div>
+          </div>
+        </figcaption>
+
+      </figure>
+    </div>
+  </div>
+</div>

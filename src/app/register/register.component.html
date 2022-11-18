@@ -1,0 +1,88 @@
+<nav aria-label="breadcrumb" class="breadcrumbMain" [routerLink]="['/ticket']">
+  <div class="breadcrumbBack">
+    <i class="fa-solid fa-angle-left"></i>
+    <div>
+      BACK</div>
+  </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/ticket']" style=" color: var(--primaryColor);">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Register</li>
+  </ol>
+</nav>
+<div class="container " id="login">
+  <div class="login-main ">
+    <!-- <div class="login-main__top">
+      <div class="login-main__logo__container">
+        <i class="login-main__logo fa-solid fa-ticket"></i>
+      </div>
+    </div> -->
+    <div class="login-main__header">
+      <div class="col-md-4" style="display: flex;align-items:center;flex-direction: row-reverse;padding: 10px;"><img
+          src="../../assets/singin.svg" style="width: 97%;"></div>
+      <h2>Kayit Ol </h2>
+    </div>
+    <div class="groupError">
+      <div class="p-3" *ngIf="(registerForm.invalid &&formSubmitted)">
+        <h3 class="border-bottom mb-2 p-2"> Hata Bilgisi</h3>
+        <ul>
+          <li *ngFor="let error of getFormValidationErrors(registerForm)">
+            {{ error }}
+          </li>
+
+        </ul>
+        <div class="hata-footer pb-2">
+          <h5 class="mt-2">
+            *** Tüm hataları düzeltip liste bittiğinde onaylayınız.
+          </h5>
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="registerForm" form #form="ngForm" (ngSubmit)="submitForm(form)">
+      <div class="login-main__bottom">
+        <div class="borderbottom">
+          <h3>Bilgilerim</h3>
+        </div>
+        <div class="group">
+          <label><b>Kullanici Adi</b></label>
+          <input type="text" placeholder="Kullanici Adi" formControlName="kullaniciAd">
+        </div>
+        <div class="group">
+          <label><b>İsim</b></label>
+          <input type="text" placeholder="İsim" formControlName="Isim">
+        </div>
+        <div class="group">
+          <label><b>Soy İsim</b></label>
+          <input type="text" placeholder="Soy İsim" formControlName="SoyIsim">
+        </div>
+        <div class="group">
+          <label><b>Mail</b></label>
+          <input type="text" placeholder="email" formControlName="email">
+        </div>
+        <div class="group" *ngIf="!mailQueryDurum">
+          <label class="mailErrorLabel" style="color:red;"> <b>***** </b>Kayıtlı E posta lütfen
+            başka
+            e posta
+            giriniz.</label>
+        </div>
+        <div class="group">
+          <label><b>Şifre</b> </label>
+          <input type="password" placeholder="****" formControlName="sifre">
+        </div>
+        <div class="group">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+            formControlName="iletisimMesaj">
+          <label> Yeni etkinliklerden haberdar olmak istiyorum. </label>
+        </div>
+      </div>
+      <div class="login-main__footer" style="width: 100%;">
+        <button class="btn btnOnay" #submit type="submit">Kayıt Ol</button>
+      </div>
+      <div class="group">
+        <h4 class="kullaniciOnay" style="color: rgb(0, 183, 0);" *ngIf="kullaniciEklemeDurumuBoolean"> Kayit
+          başarıyla Eklendi.
+        </h4>
+      </div>
+    </form>
+  </div>
+</div>

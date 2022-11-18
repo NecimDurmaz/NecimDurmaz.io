@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb" class="breadcrumbMain" [routerLink]="['/ticket']">
+  <div class="breadcrumbBack">
+    <i class="fa-solid fa-angle-left"></i>
+    <div>
+      BACK</div>
+  </div>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a [routerLink]="['/ticket']" style=" color: var(--primaryColor);">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Ticket</li>
+  </ol>
+</nav>
+<section *ngIf="firebaseSS.Settings$.value.body.ticketDesign=='product1'">
+  <product1></product1>
+</section>
+<section *ngIf="firebaseSS.Settings$.value.body.ticketDesign=='product2'">
+
+  <product2></product2>
+</section>

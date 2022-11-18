@@ -1,0 +1,93 @@
+ <div class="navbar-main">
+   <nav class="navbar navbar-expand-lg container "
+     [style.padding-top]="(settings$.value?.body?.logoTopPadding ? (settings$.value.body.logoTopPadding+'px') : '15px')"
+     [style.padding-bottom]="(settings$.value?.body?.logoBottomPadding ? (settings$.value.body.logoBottomPadding+'px') : '15px')"
+     style="padding-right: 10px;">
+     <a class="navbar-brand" routerLink="/ticket">
+       <div *ngIf="settings$?.value?.body">
+         <img
+           [src]="(settings$?.value?.body?.logoUrl ? settings$.value.body.logoUrl : 'https://www.elektraweb.com/brands/logolar/ELEKTRA_LOGO.png')"
+           height="75" alt="navbarMainLogo">
+       </div>
+     </a>
+
+     <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+       <span class="navbar-toggler-icon"> </span>
+     </button>
+
+
+     <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+
+
+       <div class="icon-right-top" *ngIf="(firebaseSS?.userLoginStatus$ | async)">
+         <h6>Kullanıcı <span style="color:#f7ff93">{{(firebaseSS?.user$?.value?.body.UserName)}} </span> <i
+             class="fa-solid fa-circle-user"></i></h6>
+       </div>
+
+       <ul class="navbar-nav">
+         <li>
+           <div>
+             <a routerLink="/ticket"><i class="fa-solid fa-home"></i> Home</a>
+           </div>
+         </li>
+         <li *ngIf="(firebaseSS?.userLoginStatus$|async) ">
+           <div>
+             <a *ngIf=" (firebaseSS?.user$?.value?.body.UsersTypeId==3)" routerLink="/admin"> <i
+                 class="fa-solid fa-hammer"></i> Admin</a>
+             <a *ngIf=" (firebaseSS?.user$?.value?.body.UsersTypeId==2)" routerLink="/user"> <i
+                 class="fa-solid fa-user-large"></i> User</a>
+           </div>
+         </li>
+         <li *ngIf="!(firebaseSS.userLoginStatus$.value )">
+           <div>
+             <a routerLink="/login"><i class="fa-solid fa-circle-user"></i> Login</a>
+           </div>
+         </li>
+         <li *ngIf="!(firebaseSS.userLoginStatus$.value )">
+           <div>
+             <a routerLink="/register"><i class="fa-solid fa-registered"></i>
+               Register</a>
+           </div>
+         </li>
+         <!-- <div *ngIf="servicesServices.userLoginStatus">
+         <a routerLink="/login"><i class="fa-solid fa-circle-user"></i>
+           Bilgilerim</a>
+         </div> -->
+         <li>
+           <div *ngIf="firebaseSS.userLoginStatus$.value">
+             <a routerLink="/login" (click)="LogOut()"><i class="fa-solid fa-registered"></i>
+               Log Out</a>
+           </div>
+         </li>
+         <li>
+           <div class="dropdown">
+             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <i class="fa-solid fa-palette colorPalet"></i>
+             </button>
+             <div class="dropdown-menu ColorGroupList" aria-labelledby="dropdownMenuButton">
+               <div class="colorMain" (click)="colorPalet('#748DA6','#F2D7D9')">
+                 <div class="colorTop" style="background-color: #748DA6;">&nbsp;</div>
+                 <div class="colorBottom" style="background-color: #F2D7D9;">&nbsp;</div>
+               </div>
+               <div class="colorMain" (click)="colorPalet('#203239','#EEEDDE')">
+                 <div class="colorTop" style="background-color: #203239;">&nbsp;</div>
+                 <div class="colorBottom" style="background-color: #EEEDDE;">&nbsp;</div>
+               </div>
+               <div class="colorMain" (click)="colorPalet('#AA14F0','#EEEEEE')">
+                 <div class="colorTop" style="background-color: #AA14F0;">&nbsp;</div>
+                 <div class="colorBottom" style="background-color: #EEEEEE;">&nbsp;</div>
+               </div>
+               <div class="colorMain" (click)="colorPalet('#FF0063','#EAF6F6')">
+                 <div class="colorTop" style="background-color: #FF0063;">&nbsp;</div>
+                 <div class="colorBottom" style="background-color: #EAF6F6;">&nbsp;</div>
+               </div>
+               <div class="colorDefault" (click)="colorPalet(SettingsPrimaryColor,SettingsSecondaryColor)"><i><b>
+                     Varsayılana dön</b></i></div>
+             </div>
+           </div>
+         </li>
+       </ul>
+     </div>
+   </nav>
+ </div>

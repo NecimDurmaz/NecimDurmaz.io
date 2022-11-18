@@ -1,0 +1,884 @@
+<div class="main container pt-3 ">
+  <ul class="nav nav-pills " id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+        type="button" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fa-solid fa-ticket"></i>
+        Rezervasyonlar </button>
+    </li>
+    <li class="nav-item" role="presentation" (click)="getAllTicketsAndEventsGeneral()">
+      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+        type="button" role="tab" aria-controls="pills-profile" aria-selected="false"><i
+          class="fa-solid fa-calendar"></i> Etkinlikler
+      </button>
+    </li>
+    <li class="nav-item" role="presentation" (click)="getAllUsers()">
+      <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+        type="button" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fa-solid fa-user"></i>
+        Kullanıcılar </button>
+    </li>
+    <li class="nav-item" role="presentation" (click)="getAllDiscount()">
+      <button class="nav-link" id="pills-discount-tab" data-bs-toggle="pill" data-bs-target="#pills-discount"
+        type="button" role="tab" aria-controls="pills-discount" aria-selected="false"><i
+          class="fa-solid fa-percent"></i>
+        İndirim </button>
+    </li>
+    <li class="nav-item" role="presentation" (click)="getAllSetting()">
+      <button class="nav-link" id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings"
+        type="button" role="tab" aria-controls="pills-settings" aria-selected="false"><i class="fa-solid fa-gear"></i>
+        Ayarlar </button>
+    </li>
+
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <!-- REZERVASYON -->
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+      <section id="reservation">
+        <div class="table-container">
+          <table class="table lead">
+            <thead>
+              <tr>
+                <th scope="col">PNR ID</th>
+                <th scope="col">isim</th>
+                <th scope="col">telefon</th>
+                <th scope="col">email</th>
+                <th scope="col">biletAdi</th>
+                <th scope="col">biletTuru</th>
+                <th scope="col">tarih</th>
+                <th scope="col">yetiskinSayisi</th>
+                <th scope="col">cocukSayisi</th>
+                <th scope="col">price</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let n of reservations$.value   ">
+                <!-- <th>{{n|json}}</th> -->
+                <th>{{n.body.PnrId}}</th>
+                <td>{{n.body.kullaniciAdSoyad}}</td>
+                <td>{{n.body.kullaniciTelefon}}</td>
+                <td>{{n.body.kullaniciEmail}}</td>
+                <td>{{n.body.biletAdi}}</td>
+                <td>{{n.body.biletTuru}}</td>
+                <td>{{n.body.tarih}}</td>
+                <td>{{n.body.yetiskinSayisi}}</td>
+                <td>{{n.body.cocukSayisi}}</td>
+                <td>{{n.body.price}}</td>
+                <td><i class="fa-solid fa-trash icon" style="color: red;" (click)="removeReservation(n.primaryKey)"></i>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+
+
+        </div>
+      </section>
+    </div>
+    <!-- ETKINLIKLER -->
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+      <section id="events">
+        <div class="events-main">
+
+          <div class="table-container table-eventsGeneral">
+            <!-- eventsgeneral -->
+            <table class="table lead">
+              <thead>
+                <tr>
+
+                  <th scope="col">eventAdi</th>
+                  <th scope="col">eventDetayi</th>
+                  <th scope="col">URL Link</th>
+                  <th scope="col"><i class="fa-solid fa-plus icon" style="color: rgb(0, 255, 0);" data-toggle="modal"
+                      data-target="#loadingModalCenter__EventsGeneral"></i>
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr *ngFor="let EventsGeneral of EventsGenerals$.value ">
+
+                  <td>{{EventsGeneral.body.eventAdi}}</td>
+                  <td>{{EventsGeneral.body.eventDetayi}}</td>
+                  <td><img src="{{EventsGeneral.body.urlLink}}" width="200" alt="eventsGeneral"></td>
+                  <td><i class="fa-solid fa-bars icon" data-toggle="modal"
+                      data-target="#loadingModalCenter__EventsGeneralUpdate" style="color: green;"
+                      (click)="updEventsGeneralFilling(EventsGeneral)"></i></td>
+                  <td><i class="fa-solid fa-trash icon" style="color: red;"
+                      (click)="removeEventsGeneral(EventsGeneral.primaryKey)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <!-- EVENTS-->
+          <div class="table-container table-events ">
+            <table class="table lead">
+              <thead>
+                <tr>
+
+                  <th scope="col">eventAdi</th>
+                  <th scope="col">Bilet Türü</th>
+                  <th scope="col">Bilet Açıklaması</th>
+                  <th scope="col">Yerli Yetiskin Ücret</th>
+                  <th scope="col">Yabancı Yetiskin Ücret</th>
+                  <th scope="col">Yerli Çocuk Ücret</th>
+                  <th scope="col">Yabancı Çocuk Ücret</th>
+
+                  <th scope="col">urlLink</th>
+                  <th scope="col"><i class="fa-solid fa-plus icon" style="color: rgb(0, 255, 0); " data-toggle="modal"
+                      data-target=".ticket-add"></i>
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody class="yeniEvent" data-dismiss="true">
+
+                <tr *ngFor="let ticket of Tickets$.value">
+
+
+                  <td>{{ticket.body.eventAdi}}</td>
+                  <td>{{ticket.body.biletTuru}}</td>
+                  <td>
+                    {{ticket.body.eventDetayi}}
+                  </td>
+                  <td>{{ticket.body.yetiskinUcretTC}}</td>
+                  <td>{{ticket.body.yetiskinUcretForeign}}</td>
+                  <td>{{ticket.body.cocukUcretTC}}</td>
+                  <td>{{ticket.body.cocukUcretForeign}}</td>
+
+                  <td><img src="{{ticket.body.urlLink}}" width="200" alt="Events"></td>
+                  <td><i class="fa-solid fa-bars icon" style="color: green;" (click)="updEventsFiiling(ticket)"
+                      data-toggle="modal" data-target=".ticket-update"></i></td>
+                  <td><i class="fa-solid fa-trash icon" style="color: red;"
+                      (click)="removeEvents(ticket.primaryKey)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- KULLANICILAR -->
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <section id="users">
+        <div class="table-container">
+          <table class="table lead">
+            <thead>
+              <tr>
+
+
+                <th scope="col">Kullanici Adi</th>
+                <th scope="col">İsim</th>
+                <th scope="col">Soy İsim</th>
+                <th scope="col">E mail</th>
+                <th scope="col">Mesaj Bildirimi</th>
+                <th scope="col">Kullanıcı Tipi</th>
+                <th scope="col">Kullanıcı Tip ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users$.value ">
+
+                <td>{{user.body.UserName}}</td>
+                <td>{{user.body.Name}}</td>
+                <td>{{user.body.SurName}}</td>
+                <td>{{user.body.email}}</td>
+                <td>
+                  <i *ngIf="user.body.contactMessage" class="fa-solid fa-2x fa-check"
+                    style="color: rgb(84, 255, 84);"></i>
+                  <i *ngIf="!user.body.contactMessage" class="fa-solid fa-2x fa-xmark icon" style="color: red;"> </i>
+                </td>
+                <td>
+
+                  <i *ngIf="(user.body.UsersTypeId==3)" class="fa-solid fa-2x fa-hammer"></i>
+                  <i *ngIf="(user.body.UsersTypeId==2)" class="fa-solid fa-2x fa-user icon"> </i>
+                </td>
+                <td>{{user.body.UsersTypeId}}</td>
+
+                <td><i class="fa-solid fa-trash icon" style="color: red;" (click)="removeUser(user.primaryKey)"></i>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <!-- AYARLAR -->
+    <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab">
+      <div class="row settings-main" style="margin: 0px;">
+        <div class="col-md-6">
+          <form [formGroup]="settingsForm" FormSettings #FormSettings="ngForm">
+            <!-- logo -->
+            <div class="row settings-stage">
+              <div class="settings-main__left__logo">
+                <div class="settings-header">
+                  <div class="settings-header-title">
+                    <h3>Logo Ayarları</h3>
+                  </div>
+                </div>
+                <div class="settings-main__left__logo__details">
+                  <div class="group row">
+
+                    <div class="groupText col-md-6">
+                      <p>Logo Url</p>
+                    </div>
+                    <div class="col-md-6 groupUrl"><input type="text" formControlName="logoUrl"></div>
+
+                  </div>
+                  <div class="group row">
+                    <div class="groupText col-md-6">
+                      <p>Logo Üstten Boşluk</p>
+                    </div>
+                    <div class="groupInput col-md-6"><input id="number" type="number" value="" style="height: 28.5px;"
+                        formControlName="logoTopPadding"></div>
+
+                  </div>
+                  <div class="group row">
+                    <div class="groupText col-md-6">
+                      <p>Logo Alttan Boşluk</p>
+                    </div>
+                    <div class="groupInput col-md-6"><input id="number" type="number" value="" style="height: 28.5px;"
+                        formControlName="logoBottomPadding"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- color -->
+            <div class="row settings-stage">
+              <div class="settings-main__left__color">
+                <div>
+                  <div class="settings-header">
+                    <div class="settings-header-title">
+                      <h3>Renk Ayarları</h3>
+                    </div>
+                  </div>
+                  <div class="settings-main__left__color__details ">
+                    <div class="row">
+                      <div class="settings-main__left__color__details__input col-md-8">
+                        <div class="  row">
+                          <div class="  col-md-6">
+                            <h5>Birincil Renk</h5>
+                          </div>
+                          <div class="  col-md-6">
+                            <div class="row w-100">
+                              <div class="col-md-10"> <input style="width: 100%;" #primaryColor type="text"
+                                  formControlName="primaryColor">
+                              </div>
+                              <i class="fa-solid fa-repeat col-md-2 dp-center" (click)="ColorSwitch(primaryColor)"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="  row">
+                          <div class="  col-md-6">
+                            <h5>İkincil Renk</h5>
+                          </div>
+                          <div class="  col-md-6">
+                            <div class="row w-100">
+                              <div class="col-md-10"> <input class="w-100" #secondaryColor type="text"
+                                  formControlName="secondaryColor"></div>
+                              <i class="fa-solid fa-repeat col-md-2 dp-center"
+                                (click)="ColorSwitch(secondaryColor)"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="  row">
+                          <div class="  col-md-6">
+                            <h5>Değerlendirme Renk</h5>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="row w-100">
+                              <div class="  col-md-10"><input #commentsColor type="text" class="w-100"
+                                  formControlName="commentsColor">
+                              </div>
+                              <i class="fa-solid fa-repeat col-md-2 dp-center" (click)="ColorSwitch(commentsColor)"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="settings-main__left__color__details__example col-md-4">
+                        <div class="settings-main__left__color__details__example__header">
+                          <h4>Renk Örnekleri</h4>
+                        </div>
+                        <div class="row" style="gap: 5px;">
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #17a2b8;">#17a2b8</div>
+                            <div style="background-color: #e9dac1;">#e9dac1</div>
+                          </div>
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #748DA6;">#748DA6</div>
+                            <div style="background-color: #F2D7D9;">#F2D7D9</div>
+                          </div>
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #AA14F0;">#AA14F0</div>
+                            <div style="background-color: #EEEEEE;">#EEEEEE</div>
+                          </div>
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #FF0063;">#FF0063</div>
+                            <div style="background-color: #EAF6F6;">#EAF6F6</div>
+                          </div>
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #EEEDDE;">#EEEDDE</div>
+                            <div style="background-color: #203239;color:white">#203239</div>
+                          </div>
+                          <div class="colorExample col-md-5">
+                            <div style="background-color: #42C2FF ;">#42C2FF</div>
+                            <div style="background-color: #B8FFF9;">#B8FFF9</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- loading -->
+            <div class="row  settings-stage">
+              <!-- header -->
+              <div class="col-md-12">
+                <div class="settings-header">
+                  <div class="settings-header-title">
+                    <h3>Yükleniyor</h3>
+                  </div>
+                </div>
+              </div>
+              <!-- body -->
+              <div class="col-md-12">
+                <div class="row loading-body-main">
+                  <div class="col-md-12">
+                    <h5>Site hazırlanırken görülen gif. Oynatmak ve seçmek için istenilen animasyona tıklayınız. </h5>
+                  </div>
+                  <div class="col-md-4" data-toggle="modal" data-target="#loadingModal"
+                    [ngClass]="{'loading-selected': settingsForm.get('loadingDesign').value=='loading1'}"
+                    (click)="changeLoadingAnimation('loading1')">
+                    <div class="text-center" *ngIf="settingsForm.get('loadingDesign').value=='loading1'">
+                      <h4 style="color: lime;">Seçildi</h4>
+                    </div>
+                    <div class="card">
+
+                      <div class="row">
+                        <div class="col-md-12"><a><img class="loading-img" src="../../assets/loading1.png"
+                              style="width: 100%; height: 200px;"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" data-toggle="modal" data-target="#loadingModal"
+                    [ngClass]="{'loading-selected': settingsForm.get('loadingDesign').value=='loading2'}"
+                    (click)="changeLoadingAnimation('loading2')">
+                    <div class="text-center" *ngIf="settingsForm.get('loadingDesign').value=='loading2'">
+                      <h4 style="color: lime;">Seçildi</h4>
+                    </div>
+                    <div class="card">
+                      <div class="row">
+                        <div class="col-md-12"><a><img class="loading-img" src="../../assets/loading2.png"
+                              style="width: 100%; height: 200px;"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" data-toggle="modal" data-target="#loadingModal"
+                    [ngClass]="{'loading-selected': settingsForm.get('loadingDesign').value=='loading3'}"
+                    (click)="changeLoadingAnimation('loading3')">
+                    <div class="text-center" *ngIf="settingsForm.get('loadingDesign').value=='loading3'">
+                      <h4 style="color: lime;">Seçildi</h4>
+                    </div>
+                    <div class="card">
+                      <div class="row">
+                        <div class="col-md-12"><a><img class="loading-img" src="../../assets/loading3.png"
+                              style="width: 100%; height: 200px;"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" data-toggle="modal" data-target="#loadingModal"
+                    [ngClass]="{'loading-selected': settingsForm.get('loadingDesign').value=='loading4'}"
+                    (click)="changeLoadingAnimation('loading4')">
+                    <div class="text-center" *ngIf="settingsForm.get('loadingDesign').value=='loading4'">
+                      <h4 style="color: lime;">Seçildi</h4>
+                    </div>
+                    <div class="card">
+                      <div class="row">
+                        <div class="col-md-12"><a><img class="loading-img" src="../../assets/loading4.png"
+                              style="width: 100%; height: 200px;"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- ticket -->
+            <div class="row settings-stage">
+              <div class="col-md-12">
+                <div class="settings-header">
+                  <div class="settings-header-title">
+                    <h3>Bilet Satın Alma Ekranı</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4>Seçim yapmak istediğiniz tasarıma tıklayınız.</h4>
+              </div>
+              <div class="col-md-12 ticket-stage" (click)="choseTicketDesign('product1')"
+                [ngClass]="{'ticket-selected': settingsForm.get('ticketDesign').value=='product1'}">
+                <div>
+                  <h5>Tasarım - 1</h5>
+                </div>
+                <div class="carouselImage">
+                  <div id="carousel-product1" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carousel-product1" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carousel-product1" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="../../assets/product1.png" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="../../assets/product1-timeline.png" alt="...">
+                      </div>
+
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-product1"
+                      data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-product1"
+                      data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 ticket-stage" (click)="choseTicketDesign('product2')"
+                [ngClass]="{'ticket-selected': settingsForm.get('ticketDesign').value=='product2'}">
+                <div>
+                  <h5>Tasarım - 2</h5>
+                </div>
+                <div class="carouselImage">
+                  <div id="carousel-product2" class="carousel slide" data-bs-ride="true">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carousel-product2" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carousel-product2" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carousel-product2" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="../../assets/product2-detail.png" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="../../assets/product2-ticket.png" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="../../assets/product2-odeme.png" alt="...">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-product2"
+                      data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-product2"
+                      data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <!-- eventsgeneral -->
+            <div class="row settings-stage">
+              <div class="col-md-12">
+                <div class="settings-header">
+                  <div class="settings-header-title">
+                    <h3>Etkinlik Listeleme EKranı</h3>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h4>Seçim yapmak istediğiniz tasarıma tıklayınız.</h4>
+              </div>
+              <div class="col-md-12 ticket-stage" (click)="choseEventsGeneralDesign('eventsGeneral1')"
+                [ngClass]="{'ticket-selected': settingsForm.get('eventsGeneralDesign').value=='eventsGeneral1'}">
+                <div>
+                  <h5>Tasarım - 1</h5>
+                </div>
+                <div>
+                  <img src="../../assets/eventsgeneral1.png" style="width: 100%;" alt="">
+                </div>
+
+              </div>
+              <div class="col-md-12 ticket-stage" (click)="choseEventsGeneralDesign('eventsGeneral2')"
+                [ngClass]="{'ticket-selected': settingsForm.get('eventsGeneralDesign').value=='eventsGeneral2'}">
+                <div>
+                  <h5>Tasarım - 2</h5>
+                </div>
+                <div>
+                  <img src="../../assets/eventsgeneral2.png" style="width: 100%;" alt="">
+                </div>
+              </div>
+
+            </div>
+            <!-- button -->
+            <div class="row settings-stage">
+              <div class="settings-main__left__buttons">
+                <button type="submit" class="BtnOnay" (click)="submitSettings()">Değişikleri Güncelle</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- sağ taraf -->
+        <div class="col-md-6">
+          <!-- NAVBAR -->
+          <div class="settings-main-header-logo" style="text-align: center;">
+            <h2>Site Demo</h2>
+          </div>
+          <div>
+            <h4 style="    border-bottom: 1px solid;
+            padding: 5px;">Logo ayarları
+
+            </h4>
+          </div>
+          <div class="settings-main__right__navbar"
+            [style.background-color]="this.settingsForm.get('primaryColor')?.value">
+            <div class="settings-main__right__navbar__logo"
+              [style.padding-top]="(this.settingsForm.get('logoTopPadding')?.value+'px' )"
+              [style.padding-bottom]="this.settingsForm.get('logoBottomPadding')?.value +'px'">
+              <img [src]="this.settingsForm.get('logoUrl')?.value" height="75" alt="demoNavbar">
+            </div>
+            <div><i class="fa-solid fa-2x fa-bars"></i></div>
+          </div>
+          <!-- COMMENTS -->
+          <div>
+            <h4 style="    border-bottom: 1px solid;
+           padding: 5px;">Değerlendirme Örneği
+
+            </h4>
+          </div>
+          <div class="settings-main__right__comments">
+            <div class="settings-main__right__comments__image">
+              <img src="https://picsum.photos/150" alt="">
+            </div>
+            <div class="settings-main__right__comments__details"
+              [style.background-color]="this.settingsForm.get('commentsColor')?.value">
+              <div style="border-bottom: 1px solid black;margin-bottom:5px;">
+                <h3>Etkinlik Adı</h3>
+              </div>
+              <div>
+                <h6>Etkinlik açıklaması --> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam vitae aut
+                  id
+                  et obcaecati tempora deleniti enim dolorum incidunt distinctio libero minima eligendi ipsum, fuga
+                  repellat non dolor consectetur repudiandae.</h6>
+              </div>
+            </div>
+          </div>
+          <!-- BUTTONS -->
+          <div>
+            <h4 style="    border-bottom: 1px solid;
+           padding: 5px;">Buton Örnekleri
+
+            </h4>
+          </div>
+          <div class="settings-main__right__buttons">
+            <button class="btnPrimary" [style.background-color]="this.settingsForm.get('primaryColor')?.value">Birincil
+              Buton</button>
+            <button class="btnSecondary"
+              [style.background-color]="this.settingsForm.get('secondaryColor')?.value">İkincil Buttom</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- discount -->
+    <div class="tab-pane fade" id="pills-discount" role="tabpanel" aria-labelledby="pills-discount-tab">
+      <section id="discount-section">
+        <div class="table-container">
+          <form [formGroup]="discountEventsGeneralForm">
+            <table class="table lead">
+              <thead>
+                <tr>
+                  <th scope="col">Event Adi</th>
+                  <th scope="col">Başlangıç Tarihi</th>
+                  <th scope="col">Bitiş Tarihi</th>
+                  <th scope="col">İndirim Yüzdesi</th>
+                  <th scope="col">&nbsp;</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td (mouseenter)="getAllEventsGeneral()"> <select style="height: 34.74px;  width: 100%;"
+                      formControlName="eventsGeneral"
+                      [ngClass]="{'wrong-input':isDiscountEventsGeneralSubmit==true && discountEventsGeneralForm.get('eventsGeneral').invalid}">
+                      <option selected>Lütfen Seçiniz</option>
+                      <option *ngFor="let n of EventsGenerals$.value"
+                        [ngValue]="{primaryKey:n.primaryKey,eventAdi:n.body.eventAdi}">
+                        {{n.body.eventAdi}}
+                      </option>
+
+                    </select></td>
+                  <td>
+                    <section>
+                      <input formControlName="startDate" name="picker" style="height:36px" matInput
+                        [matDatepicker]="pickerStart" [min]="DateNow"
+                        [ngClass]="{'wrong-input':isDiscountEventsGeneralSubmit==true && discountEventsGeneralForm.get('startDate').invalid}">
+
+                      <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerStart></mat-datepicker>
+                    </section>
+                  </td>
+                  <td>
+                    <section>
+
+                      <input name="picker" formControlName="endDate" style="height:36px" matInput
+                        [matDatepicker]="pickerEnd"
+                        [ngClass]="{'wrong-input':isDiscountEventsGeneralSubmit==true && discountEventsGeneralForm.get('endDate').invalid}"
+                        [min]="discountEventsGeneralForm.get('startDate').value">
+
+                      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                      <mat-datepicker #pickerEnd></mat-datepicker>
+                    </section>
+                  </td>
+                  <td><input type="number" formControlName="discount" [max]="100"
+                      [ngClass]="{'wrong-input':isDiscountEventsGeneralSubmit==true && discountEventsGeneralForm.get('discount').invalid}">
+                  </td>
+                  <td (click)="submitDiscountEventsGeneral()"> <i class="fa-solid fa-2x fa-check"
+                      style="color: lime;"></i>
+                  </td>
+                </tr>
+                <tr *ngFor="let discount of discount$.value ">
+
+                  <td>{{discount.body.eventsGeneralName}}</td>
+                  <td>{{timeStampToDate(discount.body.startDate)}}</td>
+                  <td>{{timeStampToDate(discount.body.endDate)}}</td>
+                  <td>{{discount.body.discount}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Events-->
+<section id="ModalEvent">
+  <div class="modal fade" id="loadingModalCenter" tabindex="-1" role="dialog" aria-labelledby="loadingModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog-ticket modal-dialog-centered container" role="document">
+      <div class="modal-content lead">
+        <div class="modal-header">
+          <h3 class="modal-title" id="loadingModalLongTitle">Bilet Ekleme</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body dp-center">
+          <ticket-detail [EventsGenerals]="EventsGenerals$.value" (newTicket)="addTicket($event)"></ticket-detail>
+        </div>
+        <div class="modal-footer"> <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal EventsGeneral -->
+<section id="ModalEventsGeneral">
+  <div class="modal fade" id="loadingModalCenter__EventsGeneral" tabindex="-1" role="dialog"
+    aria-labelledby="loadingModalCenterTitle__EventsGeneral" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered-modal-lg" role="document">
+      <div class="modal-content lead">
+        <div class="modal-header">
+          <h3 class="modal-title" id="loadingModalLongTitle"> Etkinlik Ekleme</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form [formGroup]="newEventsGeneralForm" formNewEG #formNewEG="ngForm"
+          (ngSubmit)="newEventsGeneral(newEventsGeneralForm,btnCloseEventsGeneral)">
+          <div class="modal-body ">
+
+            <div class="groupEventAd">
+              <label>Event Adi</label>
+              <input type="text" formControlName="eventAdi">
+            </div>
+            <div class="groupEventLink">
+
+              <label>Fotoğraf Linki</label>
+              <input type="text" formControlName="urlLink">
+            </div>
+            <div class="groupEventDetay">
+              <label>Event Detayı</label>
+              <textarea style="width: 100%;height: 135px;" formControlName="eventDetayi"></textarea>
+            </div>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" #btnCloseEventsGeneral>Çıkış</button>
+            <button type="submit" class="btn btn-primary">Yeni Etkinlik Ekle</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal EventsGeneral Update-->
+<section id="ModalEventsGeneral">
+  <div class="modal fade" id="loadingModalCenter__EventsGeneralUpdate" tabindex="-1" role="dialog"
+    aria-labelledby="loadingModalCenterTitle__EventsGeneralUpdate" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered-modal-lg" role="document">
+      <div class="modal-content lead">
+        <div class="modal-header">
+          <h3 class="modal-title" id="loadingModalLongTitle"> Etkinlik Güncelleme</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" #btnClose>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form [formGroup]="updEventsGeneralForm" formUpdEG #formUpdEG="ngForm"
+          (ngSubmit)="UpdateEventsGeneralForm(updEventsGeneralForm,btnClose)">
+          <div class="modal-body ">
+
+            <div class="groupEventAd">
+              <label>Event Adi</label>
+              <input type="text" formControlName="eventAdi">
+            </div>
+            <div class="groupEventLink">
+
+              <label>Fotoğraf Linki</label>
+              <input type="text" formControlName="urlLink">
+            </div>
+            <div class="groupEventDetay">
+              <label>Event Detayı</label>
+              <textarea style="width: 100%;height: 135px;" formControlName="eventDetayi"></textarea>
+            </div>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Çıkış</button>
+            <button type="submit" class="btn btn-primary"> Etkinlik Güncelle </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- loading modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height:85vh;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loadingModalLabel">Loading Önizleme</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div>
+
+        <loading1 *ngIf="settingsForm.get('loadingDesign').value=='loading1'"></loading1>
+        <loading2 *ngIf="settingsForm.get('loadingDesign').value=='loading2'"></loading2>
+        <loading3 *ngIf="settingsForm.get('loadingDesign').value=='loading3'"></loading3>
+        <loading4 *ngIf="settingsForm.get('loadingDesign').value=='loading4'"></loading4>
+        <!-- <loading5></loading5> -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ticket add modal -->
+<div class="modal fade ticket-add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content lead">
+      <div class="modal-header">
+        <h3 class="modal-title" id="loadingModalLongTitle">Bilet Ekleme</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body dp-center">
+        <ticket-detail [EventsGenerals]="EventsGenerals$.value" (newTicket)="addTicket($event)"></ticket-detail>
+      </div>
+      <div class="modal-footer"> <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ticket update modal -->
+<div class="modal fade ticket-update" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content lead">
+      <div class="modal-header">
+        <h3 class="modal-title" id="loadingModalLongTitle">Bilet Ekleme</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body dp-center" *ngIf="updateTicket.value!=null">
+        <ticket-detail [updateTicket]="updateTicket" [EventsGenerals]="EventsGenerals$.value"
+          (newTicket)="addTicket($event)"></ticket-detail>
+      </div>
+      <div class="modal-footer"> <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+    </div>
+  </div>
+</div>
+<!-- Modal Events Update kullanılmıyor-->
+<section id="ModalEvent">
+  <div class="modal fade" id="loadingModalUpdate" tabindex="-1" role="dialog" aria-labelledby="loadingModalUpdate"
+    aria-hidden="true">
+    <div class="modal-dialog-ticket modal-dialog-centered container" role="document">
+      <div class="modal-content lead">
+        <div class="modal-header">
+          <h3 class="modal-title" id="loadingModalLongTitle">Bilet Ekleme</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body dp-center" *ngIf="updateTicket.value!=null">
+          <ticket-detail [updateTicket]="updateTicket" [EventsGenerals]="EventsGenerals$.value"
+            (newTicket)="addTicket($event)"></ticket-detail>
+        </div>
+        <div class="modal-footer"> <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+      </div>
+    </div>
+  </div>
+</section>

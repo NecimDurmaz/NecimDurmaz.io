@@ -1,0 +1,14 @@
+.tab-content {
+    background-color: white;
+    padding: 10px;
+    border-left: 1px solid #ddd;
+  }
+  .nav-pills .nav-link.active,
+  .nav-pills .show > .nav-link {
+    background-color: var(--primaryColor);
+    color: white;
+  }
+  .nav-pills .nav-link {
+    color: black;
+  }
+  

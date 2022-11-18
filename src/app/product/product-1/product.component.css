@@ -1,0 +1,516 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Uchen&display=swap");
+
+/* EKLEME */
+.countGroup {
+  display: flex;
+  flex-direction: column;
+}
+.countGroupElement {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+*:not(.fa, .fa-solid) {
+  font-family: "Open Sans", sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.w-49 {
+  width: 45% !important;
+}
+
+.w-33 {
+  width: 33% !important;
+}
+
+.w-64 {
+  width: 64% !important;
+}
+
+.h-33 {
+  height: 33% !important;
+}
+.w-39 {
+  width: 39% !important;
+}
+.w-59 {
+  width: 59% !important;
+}
+.btn-submit {
+  margin-top: 15px;
+  /* text-align: center; */
+  margin-left: calc(50% - 50px);
+}
+
+.text-default {
+  color: #e84c3d;
+  font-size: 85%;
+}
+
+.top,
+.bottom {
+  border: 1px solid #ddd;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.header {
+  padding: 10px 25px;
+  border-bottom: 2px solid #dfdfdf;
+  gap: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+.form-uyelik {
+  padding: 0px 10px;
+}
+.group {
+  width: 48%;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: baseline;
+}
+.groupPayment {
+  width: 48%;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+label {
+  width: 37%;
+  margin-bottom: 18px;
+}
+
+.group-price {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-users {
+  display: flex;
+  justify-content: space-between;
+}
+
+.group {
+  gap: 15px;
+}
+
+.form-users__left {
+  width: 65%;
+  font-size: 1rem;
+}
+
+.form-users__right {
+  width: 30%;
+  font-size: 1rem;
+}
+
+.form-Count {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: baseline;
+}
+
+.form-Count i {
+  opacity: 0.8;
+  cursor: pointer;
+
+  font-size: 17px;
+  border: 3px solid rgb(81, 77, 77);
+  border-radius: 50%;
+}
+
+.form-Count i:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+}
+
+.form-check-input {
+  width: 15px;
+  height: 15px;
+  border-radius: 50% !important;
+}
+
+.bottom #contact {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 21px;
+  padding: 15px;
+  justify-content: space-between;
+}
+
+.bottom form .group {
+  width: 30%;
+}
+
+.bottom {
+  width: 48%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.bottom .bottom_right,
+.bottom .bottom_left {
+  width: 45%;
+}
+
+.bottom_main {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom {
+  align-content: flex-start;
+  align-items: baseline;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* price */
+#price .row {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+  padding-bottom: 5px;
+}
+#price .row:last-child .col-md-3 {
+  display: flex;
+  align-items: center;
+}
+.card-detail {
+  display: flex;
+  gap: 5px;
+}
+.discountPrice {
+  color: green;
+  font-weight: bold;
+  font-size: 18px;
+}
+.btn-odeme {
+  margin-top: 15px;
+  margin-left: calc(100% - 75px);
+}
+
+.email-mat {
+  width: 100%;
+}
+
+.biletOnay {
+  display: flex;
+  gap: 15px;
+}
+
+.aclass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(8px, 8px, 8px #141414);
+  opacity: 0.9;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body-title {
+  display: flex;
+  width: 110%;
+  align-items: center;
+}
+
+.biletOnay h6 span:hover {
+  cursor: pointer;
+}
+
+.btnOnay {
+  background-color: var(--primaryColor);
+  border-radius: 5px;
+  opacity: 0.9;
+  color: white;
+  font-weight: bold;
+}
+
+.btnOnay:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.hata-footer {
+  border-top: 1px solid #dee2e6;
+}
+
+.form-Count input {
+  background-color: white;
+  width: 20%;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.bottom-iletisim {
+  width: 44%;
+}
+.bottom-card {
+  width: 54%;
+}
+.groupFiyatGenel label {
+  font-weight: bold;
+}
+.groupFiyatGenel {
+  font-weight: bold;
+}
+.priceCon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.priceContent {
+  display: flex;
+  margin-bottom: 15px;
+  width: 30%;
+  justify-content: space-between;
+}
+.priceLabel {
+  font-weight: bold;
+}
+.priceText {
+  min-width: 100px;
+  font-weight: normal;
+  text-align: right;
+}
+
+.groupFiyatGenel-button {
+  padding-right: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.CardBiletOnay {
+  list-style-type: none;
+  padding: 12px 20px;
+}
+.CardBiletOnay span:hover {
+  cursor: pointer;
+}
+.CardBiletOnay span {
+  color: #018181;
+}
+@media screen and (max-width: 500px) {
+  .form-users__left {
+    width: 100%;
+  }
+  .group.countGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  .bottom_main {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .bottom-iletisim,
+  .bottom-card {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .countGroupElement {
+    flex-direction: column;
+  }
+  .countGroupElement div {
+    width: 100% !important;
+  }
+}
+.pointer:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 750px) {
+  .group.countGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  .group.countGroup .group {
+    width: 100%;
+  }
+  .form-users {
+    flex-direction: column-reverse;
+  }
+  .form-users__left {
+    width: 100%;
+  }
+  .form-users__right {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .group.countGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  .group.countGroup .group {
+    width: 100%;
+  }
+  .form-users {
+    flex-direction: column-reverse;
+  }
+  .form-users__left {
+    width: 100%;
+  }
+  .form-users__right {
+    width: 100%;
+  }
+}
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  /* overflow: auto; */
+  font-size: 1rem;
+  width: 100%;
+  white-space: pre-wrap;
+}
+.cursor:hover {
+  cursor: pointer;
+}
+.notTicketsMain {
+  text-align: center;
+  background-color: rgb(255, 255, 255, 0.3);
+  margin: auto;
+
+  font-size: 1.2rem;
+  font-weight: 300;
+  padding: 21px;
+  border-radius: 10px;
+}
+.notTicketsMain__header {
+  margin-bottom: 15px;
+}
+
+section#notTickets {
+  margin-top: 11px;
+}
+
+/* timeline */
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+
+/* Timeline holder */
+ul.timeline {
+  list-style-type: none;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+/* Timeline vertical line */
+ul.timeline:before {
+  content: " ";
+  background: rgb(23, 162, 184);
+  background: linear-gradient(
+    180deg,
+    rgba(23, 162, 184, 1) 0%,
+    rgba(233, 218, 193, 1) 68%
+  );
+  display: inline-block;
+  position: absolute;
+  left: 16px;
+  width: 4px;
+  height: 100%;
+  z-index: 400;
+  border-radius: 1rem;
+}
+
+li.timeline-item {
+  margin: 20px 0;
+}
+
+/* Timeline item arrow */
+.timeline-arrow {
+  border-top: 0.5rem solid transparent;
+  border-right: 0.5rem solid #fff;
+  border-bottom: 0.5rem solid transparent;
+  display: block;
+  position: absolute;
+  left: 2rem;
+}
+
+/* Timeline item circle marker */
+li.timeline-item::before {
+  content: " ";
+  background: var(--secondaryColor);
+  display: inline-block;
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  left: 11px;
+  width: 14px;
+  height: 14px;
+  z-index: 400;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* nav-link */
+
+.nav-tabs .nav-link.active {
+  background-color: var(--primaryColor);
+  color: white;
+}
+.nav-tabs .nav-link {
+  background-color: var(--secondaryColor);
+  color: black;
+}
+/* indirim kuponu */
+.box {
+  text-align: center;
+}
+.coupon {
+  display: inline-block;
+  border: 1px dashed #000;
+  padding: 0.8em 1.2em;
+  position: relative;
+  font-weight: bold;
+  background: #ffc107;
+}
+
+span.scissors {
+  position: absolute;
+  top: -12px;
+  right: 0;
+}
+.inner {
+  display: inline-block;
+}
+.discount-title {
+  color: var(--primaryColor);
+  font-weight: bolder;
+  font-size: 16px;
+}
+.notDiscount {
+  font-weight: bold;
+  text-decoration: line-through !important;
+  color: red;
+  font-size: 18px;
+}

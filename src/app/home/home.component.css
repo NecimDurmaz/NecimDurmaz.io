@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+:root {
+  --primaryColor: #17a2b8;
+  --secondaryColor: #e9dac1;
+}
+
+* {
+  font-family: "Roboto", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+}
+body {
+  font-size: 15px;
+}
+.homeMainDiv {
+  /* background-color: var(--primaryColor); */
+
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url("../../assets/background.png");
+  max-height: 100vh;
+  min-height: 100vh;
+}
+.main {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+    url("../../assets/background.png");
+  min-height: calc(100vh - (404px));
+}
+
+.load {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,28 @@
+<div class="homeMainDiv" #homeMainDiv *ngIf="firebaseSS.progress.value">
+  <navbar [SettingsPrimaryColor]="SettingsPrimaryColor" [SettingsSecondaryColor]="SettingsSecondaryColor"></navbar>
+
+  <div class="main ">
+    <!--   <div class="container">
+      <router-outlet></router-outlet>
+    </div> -->
+
+
+    <router-outlet></router-outlet>
+
+  </div>
+  <footer></footer>
+</div>
+
+<div class="load" *ngIf="!firebaseSS.progress.value">
+  <!-- <div class="load"> -->
+  <section *ngIf="Settings$.value!=null">
+    <loading1 *ngIf="Settings$.value.body.loadingDesign=='loading1'"></loading1>
+    <loading2 *ngIf="Settings$.value.body.loadingDesign=='loading2'"></loading2>
+    <loading3 *ngIf="Settings$.value.body.loadingDesign=='loading3'"></loading3>
+    <loading4 *ngIf="Settings$.value.body.loadingDesign=='loading4'"></loading4>
+    <loading5 *ngIf="Settings$.value.body.loadingDesign=='loading5'"></loading5>
+  </section>
+  <section *ngIf="Settings$.value==null">
+    <loading3></loading3>
+  </section>
+</div>

@@ -1,0 +1,109 @@
+li {
+  list-style-type: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.reservationCardMain {
+  width: 20%;
+  margin: 29px auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.reservationCardMain__header {
+  background-color: var(--primaryColor);
+  text-align: center;
+  color: white;
+}
+
+img {
+  width: 100%;
+}
+
+.reservationCardMain__event {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
+}
+
+.reservationCardMain__eventDetail__text {
+  font-weight: 500;
+  font-size: 1rem;
+  width: 40%;
+}
+.reservationCardMain__eventDetail__input {
+  font-size: 0.9rem;
+}
+.totalPrice .reservationCardMain__eventDetail__input {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.reservationCardMain__eventDetail__group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.reservationCardMain__eventDetail {
+  margin: 10px 0px;
+  justify-content: space-between;
+}
+.reservationCardBody {
+  padding: 15px;
+}
+.reservationCardMain__reservation__code {
+  display: flex;
+  margin: 10px 0px;
+  font-size: 1.1rem;
+}
+.reservationCardMain__reservation__qr {
+  margin: 10px 0px;
+  text-align: center;
+}
+.reservationCardMain__eventDetail__left {
+  width: 100%;
+}
+.reservationCardMain__eventDetail__user {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  font-weight: 550;
+}
+@media screen and (max-width: 990px) {
+  .reservationCardMain {
+    width: 60%;
+  }
+}
+#noReservation {
+  background-color: rgb(255, 255, 255, 0.3);
+  margin: auto;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.noReservation__header {
+  text-align: center;
+}
+.noReservation__body {
+  color: red;
+  text-align: center;
+  padding: 21px;
+}
+
+.noReservation__header {
+  padding: 14px;
+}
+.noReservation__header__title {
+  width: 30%;
+  margin: auto;
+  border-bottom: 1px solid white;
+  margin-bottom: 10px !important;
+  color: var(--primaryColor);
+}
+#noReservation {
+  width: 60%;
+  margin-top: 20px;
+}

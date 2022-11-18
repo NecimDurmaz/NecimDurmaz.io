@@ -1,0 +1,7 @@
+<section *ngIf="firebaseService.Settings$.value.body.eventsGeneralDesign">
+  <ticket *ngIf="firebaseService.Settings$.value.body.eventsGeneralDesign=='eventsGeneral1'"></ticket>
+  <ticket2 *ngIf="firebaseService.Settings$.value.body.eventsGeneralDesign=='eventsGeneral2'"></ticket2>
+</section>
+<section *ngIf="!firebaseService.Settings$.value.body.eventsGeneralDesign">
+  <ticket2></ticket2>
+</section>

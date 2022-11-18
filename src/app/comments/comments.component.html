@@ -1,0 +1,52 @@
+<!-- eventsgeneral -->
+<div class="main container lead">
+  <div class="eventsGeneralMain">
+    <div class="img">
+      <img src="{{eventsGeneral?.[0]?.body.urlLink}}" alt="commits">
+    </div>
+    <div class="eventsGeneral">
+      <h3 style="font-weight: bolder;">{{eventsGeneral?.[0]?.body.eventAdi}}</h3>
+      <hr>
+      <h6>{{eventsGeneral?.[0]?.body.eventDetayi}}</h6>
+    </div>
+  </div>
+</div>
+<!-- comments -->
+<div class="card-main" *ngIf="this.SelectedComments?.length!=0">
+  <div class="card" *ngFor="let n of SelectedComments">
+    <div class="card-header">
+      <div class="cardHeaderDate">
+        <div>{{n.body.tarih}}</div>
+      </div>
+      <div class="cardHeaderType">
+        <h5 style="text-align: center;"> {{n.body.biletTuru}} </h5>
+        <div> {{n.body.totalRating}} / 5 </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p> {{n.body.description}}</p>
+
+      </blockquote>
+    </div>
+    <div class="card-footer">
+      <div><i>- {{n.body.UserName}}</i></div>
+      <div>{{n.body.yorumTarihi}}</div>
+    </div>
+  </div>
+</div>
+<!-- yok ise -->
+<section id="notComments" *ngIf="this.SelectedComments?.length==0">
+  <div class="notCommentsMain">
+    <div class="notCommentsMain__header">
+      <div> <img
+          [src]="(firebaseSS.settingsLogoUrl ? firebaseSS.settingsLogoUrl : 'https://portalv3.s3.eu-central-1.amazonaws.com/156/MyHotelFiles/78530f22-744a-42b0-b81e-8460cf83e567_balogo.png')"
+          height="75" alt="navbarMainLogo"></div>
+    </div>
+    <div class="notCommentsMain_detail">
+      <h4>Aktif yorum bulunmamaktadır.Lütfen başka etkinliklere göz atınız.</h4>
+    </div>
+  </div>
+  <ticket [selectedEventsGeneralID]="eventsGeneralId"></ticket>
+
+</section>
